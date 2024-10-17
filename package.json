@@ -1,0 +1,44 @@
+{
+  "name": "mern-project-cli",
+  "version": "1.0.2",
+  "description": "A CLI tool to scaffold a MERN stack project",
+  "main": "index.js",
+  "bin": {
+    "mern-project-cli": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "Manish Raj",
+  "license": "MIT",
+  "keywords": [
+    "CLI",
+    "MERN",
+    "MERN stack",
+    "MERN project",
+    "MERN project CLI",
+    "MERN project generator",
+    "MERN stack project",
+    "MERN stack project CLI",
+    "backend",
+    "project generator",
+    "backend templates",
+    "node.js",
+    "commander",
+    "fs-extra",
+    "project scaffolding",
+    "project structure",
+    "project setup",
+    "project management",
+    "developer tools"
+  ]
+}
