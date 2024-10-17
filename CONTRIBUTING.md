@@ -96,3 +96,4 @@ Maintainers need to do the following to push out a release:
 * Publish to npm: `npm publish`
 
 Thank you for your contributions!
+
