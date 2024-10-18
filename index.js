@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
+const chalk = require('chalk');
 const { execSync } = require("child_process");
 
 function checkNodeVersion() {
@@ -188,17 +189,19 @@ REACT_APP_API_URL=http://localhost:5000/api
 
   // Final project setup message
   console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
-  console.log(`
-To get started:
-  cd "${projectName}"
-Frontend:
-  cd backend
-  npm start or npm run dev [nodemon]
 
-Frontend:
-  cd frontend
-  npm start
-  `);
+  console.log(`
+${chalk.green.bold('To get started:')}
+  ${chalk.blue(`cd "${projectName}"`)}
+
+${chalk.magenta.bold('Backend:')}
+  ${chalk.blue('cd backend')}
+  ${chalk.yellow('npm start')} ${chalk.cyan('or')} ${chalk.yellow('npm run dev [nodemon]')}
+
+${chalk.magenta.bold('Frontend:')}
+  ${chalk.blue('cd frontend')}
+  ${chalk.yellow('npm start')}
+`);
 }
 
 // Parse command line arguments
