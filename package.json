@@ -1,8 +1,9 @@
 {
   "name": "mern-project-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A CLI tool to scaffold a MERN stack project",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "mern-project-cli": "./index.js"
   },

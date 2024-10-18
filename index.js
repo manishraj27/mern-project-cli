@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
-const chalk = require('chalk');
+import chalk from 'chalk';
 const { execSync } = require("child_process");
 
 function checkNodeVersion() {
