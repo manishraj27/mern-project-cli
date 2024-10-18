@@ -5,6 +5,7 @@
 
 ![npm](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
 ![npm](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
+[![Node.js Package](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml)
 
 **MERN Project Generator CLI** is a powerful command-line tool designed to jumpstart your MERN (MongoDB, Express, React, Node.js) stack projects. With just one command, you can scaffold a complete project structure for both backend and frontend, following best practices and including essential configurations.
 
