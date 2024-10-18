@@ -13,98 +13,171 @@
 
 - **Full MERN Stack Setup**: Generate both backend and frontend projects in one go.
 - **Best Practices Built-in**: The generated projects follow industry-standard best practices for MERN stack development.
-- **Customizable**: Easy to extend and customize to fit your specific project needs.
+- **Dynamic MongoDB Integration**: Easily set up MongoDB connection with automatic database naming.
+- **Customizable Database Names**: Flexibility to use custom database names or automatic project-based naming.
+- **Environment Ready**: Includes pre-configured `.env.example` files for both frontend and backend.
+- **Development Mode**: Built-in development server configuration with nodemon.
 - **Instant Development Ready**: Start coding your application logic immediately after generation.
+
+## Requirements
+
+- Node.js 14.x or higher
+- npm 6.x or higher
+- MongoDB (local or remote)
 
 ## Installation
 
-To use the CLI effeciently, run use(`npm`):
+Install the CLI globally using npm:
 
 ```bash
 npm install -g mern-project-cli
 ```
 
-## Usage
+## Available Commands
 
-To create a new MERN project, run:
+Check all available commands and options:
 
 ```bash
-mern-project-cli your-project-name
+devcli --help
 ```
 
-Replace `your-project-name` with your desired project name.
+This will show you:
+```
+Usage: devcli [options] [command]
+
+A CLI tool to scaffold and manage MERN stack projects
+
+Options:
+  -V, --version                    output the version number
+  -h, --help                       display help for command
+
+Commands:
+  create <projectName>             Create a new MERN project
+  mongodb-connect [options]        Generate MongoDB connection code
+  help [command]                   display help for command
+```
+
+### Creating a New Project
+
+Create a new MERN project:
+
+```bash
+devcli create your-project-name
+```
+
+This will:
+1. Create the complete project structure
+2. Initialize Git repository
+3. Install all dependencies
+4. Set up development scripts
+
+### Setting up MongoDB Connection
+
+You have two options for setting up MongoDB connection:
+
+1. **Using Project Name as Database Name**:
+```bash
+devcli mongodb-connect
+```
+This will create a database named `your_project_name_db`
+
+2. **Using Custom Database Name**:
+```bash
+devcli mongodb-connect -p custom_name
+# or
+devcli mongodb-connect --project custom_name
+```
+This will create a database named `custom_name_db`
 
 ## Generated Project Structure
-
-The CLI generates the following structure:
 
 ```
 your-project-name/
 ├── backend/
 │   ├── controllers/
 │   ├── db/
+│   │   └── connection.js         # MongoDB connection configuration
 │   ├── middlewares/
 │   ├── models/
 │   ├── routes/
 │   ├── utils/
-│   ├── .env.example
-│   ├── .gitignore
+│   ├── .env.example             # DB_URL=mongodb://localhost:27017/your_db
+│   ├── .gitignore              # Includes node_modules, .env, etc.
 │   ├── constants.js
-│   ├── package.json
+│   ├── package.json            # Includes express, mongoose, dotenv, etc.
 │   ├── README.md
-│   └── server.js
+│   └── server.js              # Express server with MongoDB connection
 └── frontend/
-    ├── (Create React App structure)
-    └── .env.example
+    ├── public/
+    ├── src/
+    ├── .env.example          # REACT_APP_API_URL=http://localhost:5000/api
+    ├── package.json
+    └── README.md
 ```
 
-## Features
+## Getting Started After Generation
+
+1. Navigate to your new project:
+   ```bash
+   cd your-project-name
+   ```
+
+2. Set up the backend:
+   ```bash
+   cd backend
+   cp .env.example .env    # Copy and configure environment variables
+   npm run dev            # Start development server with nodemon
+   ```
+
+3. Set up the frontend (in a new terminal):
+   ```bash
+   cd frontend
+   cp .env.example .env   # Copy and configure environment variables
+   npm start             # Start React development server
+   ```
+
+4. Set up MongoDB:
+   ```bash
+   devcli mongodb-connect   # From project root or backend directory
+   ```
+
+## Environment Variables
+
+### Backend (.env)
+```env
+PORT=5000
+DB_URL=mongodb://localhost:27017/your_project_db  # Default if not specified
+```
+
+### Frontend (.env)
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+## Development Scripts
 
 ### Backend
-
-- Express.js server setup
-- MongoDB connection ready (using Mongoose)
-- Environment variable configuration
-- Basic error handling
-- Modular architecture
+```bash
+npm run dev   # Start development server with nodemon
+npm start     # Start production server
+```
 
 ### Frontend
-
-- Create React App setup
-- Environment variable configuration
-
-## Getting Started
-
-After generating your project:
-
-1. Navigate to the backend directory:
-   ```bash
-   cd your-project-name/backend
-   ```
-
-2. Create a `.env` file based on `.env.example` and configure your environment variables.
-
-3. Start the backend server:
-   ```bash
-   npm run dev
-   ```
-
-4. In a new terminal, navigate to the frontend directory:
-   ```bash
-   cd your-project-name/frontend
-   ```
-5. Start the React development server:
-   ```bash
-   npm start
-   ```
+```bash
+npm start     # Start development server
+npm build     # Create production build
+npm test      # Run tests
+```
 
 ## Customization
 
-Feel free to modify the generated files to fit your specific project requirements. The structure is designed to be easily extendable.
+The generated structure is designed to be easily customizable:
 
-## Requirements
-
-- Node.js 14.x or higher
+- **Controllers**: Add your API logic in `backend/controllers/`
+- **Models**: Define MongoDB schemas in `backend/models/`
+- **Routes**: Add API routes in `backend/routes/`
+- **Middlewares**: Add custom middlewares in `backend/middlewares/`
+- **Frontend Components**: Add React components in `frontend/src/components/`
 
 ## Contributing
 
@@ -121,7 +194,7 @@ This project is licensed under the MIT License.
   <p>
     <a href="https://manishraj.me/" target="_blank">Portfolio</a>&nbsp;
     <a href="https://github.com/manishraj27" target="_blank">GitHub</a>&nbsp;
-    <a href="https://www.linkedin.com/in/manishraj27" target="_blank">LinkdIn</a>&nbsp;
+    <a href="https://www.linkedin.com/in/manishraj27" target="_blank">LinkedIn</a>&nbsp;
     <a href="https://x.com/manish_rraaj" target="_blank">Twitter</a>&nbsp;
   </p>
 </div>
