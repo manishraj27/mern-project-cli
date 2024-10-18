@@ -17,7 +17,7 @@
 
 ## Installation
 
-To install the CLI globally, use `npm`:
+To use the CLI effeciently, run use(`npm`):
 
 ```bash
 npm install -g mern-project-cli
@@ -118,9 +118,9 @@ This project is licensed under the MIT License.
 <div align="center">
   <p>Made with ❤️ by Manish Raj</p>
   <p>
-    <a href="https://manishraj.me/" target="_blank">Portfolio</a>
-    <a href="https://github.com/manishraj27" target="_blank">GitHub</a> 
-    <a href="https://www.linkedin.com/in/manishraj27" target="_blank">LinkdIn</a>
-    <a href="https://x.com/manish_rraaj" target="_blank">Twitter</a>
+    <a href="https://manishraj.me/" target="_blank">Portfolio</a>&nbsp;
+    <a href="https://github.com/manishraj27" target="_blank">GitHub</a>&nbsp;
+    <a href="https://www.linkedin.com/in/manishraj27" target="_blank">LinkdIn</a>&nbsp;
+    <a href="https://x.com/manish_rraaj" target="_blank">Twitter</a>&nbsp;
   </p>
 </div>
