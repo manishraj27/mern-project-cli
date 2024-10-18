@@ -166,7 +166,6 @@ npm start     # Start production server
 ```bash
 npm start     # Start development server
 npm build     # Create production build
-npm test      # Run tests
 ```
 
 ## Customization
@@ -185,8 +184,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT](https://github.com/manishraj27/mern-project-cli/blob/main/LICENSE) License.
 
+## Give ⭐ to the repo [mern-project-cli](https://github.com/manishraj27/mern-project-cli)
 ---
 
 <div align="center">
