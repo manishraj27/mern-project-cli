@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
+import fs from 'fs-extra';
+import path from 'path';
 import chalk from 'chalk';
-const { execSync } = require("child_process");
+import { execSync } from 'child_process';
 
 function checkNodeVersion() {
   const currentVersion = process.versions.node;
