@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-import fs from 'fs-extra';
-import path from 'path';
-import chalk from 'chalk';
-import { execSync } from 'child_process';
+import fs from "fs-extra";
+import path from "path";
+import chalk from "chalk";
+import { execSync } from "child_process";
+import { Command } from "commander";
+
+const program = new Command();
 
 function checkNodeVersion() {
   const currentVersion = process.versions.node;
@@ -191,16 +194,18 @@ REACT_APP_API_URL=http://localhost:5000/api
   console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
 
   console.log(`
-${chalk.green.bold('To get started:')}
+${chalk.green.bold("To get started:")}
   ${chalk.blue(`cd "${projectName}"`)}
 
-${chalk.magenta.bold('Backend:')}
-  ${chalk.blue('cd backend')}
-  ${chalk.yellow('npm start')} ${chalk.cyan('or')} ${chalk.yellow('npm run dev [nodemon]')}
+${chalk.magenta.bold("Backend:")}
+  ${chalk.blue("cd backend")}
+  ${chalk.yellow("npm start")} ${chalk.cyan("or")} ${chalk.yellow(
+    "npm run dev [nodemon]"
+  )}
 
-${chalk.magenta.bold('Frontend:')}
-  ${chalk.blue('cd frontend')}
-  ${chalk.yellow('npm start')}
+${chalk.magenta.bold("Frontend:")}
+  ${chalk.blue("cd frontend")}
+  ${chalk.yellow("npm start")}
 `);
 }
 
@@ -214,4 +219,17 @@ if (!projectName) {
 // Check Node.js version
 checkNodeVersion();
 
-createMERNProject(projectName);
+program
+  .name("devcli")
+  .description("A CLI tool to scaffold and manage MERN stack projects")
+  .version("1.0.0");
+
+program
+  .command("create <projectName>")
+  .description("Create a new MERN project")
+  .action((projectName) => {
+    createMERNProject(projectName);
+  });
+
+// Parse the arguments and start the CLI
+program.parse(process.argv);
