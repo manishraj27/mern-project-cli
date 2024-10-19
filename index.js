@@ -23,7 +23,7 @@ const program = new Command();
 program
   .name("devcli")
   .description("A developer-friendly CLI tool that streamlines MERN stack development by automating project setup, database configuration, and boilerplate generation by implementing MVC Architecture. Create production-ready MongoDB, Express, React, and Node.js applications with best practices built-in")
-  .version("packageJson.version");
+  .version(packageJson.version);
 
 // Register commands
 createMERNProjectCommand(program);
