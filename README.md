@@ -34,6 +34,7 @@ Are you tired of:
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [License](#-license)
+- [Support the project](#-support-the-project)
 
 ## ⚡ Requirements
 
