@@ -26,7 +26,7 @@ Are you tired of:
 - **Git Ready**: Initialized Git repository with proper `.gitignore` files
 
 ## 📑 Index
-- [Requirements](#requirements)
+- [Requirements](#⚡-Requirements)
 - [Installation](#installation)
 - [Commands](#commands)
   - [1. devcli create](#1-create-mern-project)
