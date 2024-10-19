@@ -26,14 +26,14 @@ Are you tired of:
 - **Git Ready**: Initialized Git repository with proper `.gitignore` files
 
 ## 📑 Index
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Commands](#commands)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Commands](#-commands)
   - [1. devcli create](#1-create-mern-project)
   - [2. devcli mongodb-connect](#2-connect-mongodb)
-- [Complete User Journey Example](#Complete-User-Journey-Example)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
+- [Complete User Journey Example](#-Complete-User-Journey-Example)
+- [Future Enhancements](#-future-enhancements)
+- [License](#-license)
 
 ## ⚡ Requirements
 
@@ -290,7 +290,7 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE]() file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/manishraj27/mern-project-cli?tab=MIT-1-ov-file) file for details.
 
 ## 🌟 Support the Project
 
