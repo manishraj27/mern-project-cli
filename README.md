@@ -28,7 +28,7 @@ Are you tired of:
 ## 📑 Index
 - [Requirements](#-requirements)
 - [Installation](#-installation)
-- [Commands](#-commands)
+- [Commands](#%EF%B8%8F-commands)
   - [1. devcli create](#1-create-mern-project)
   - [2. devcli mongodb-connect](#2-connect-mongodb)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
