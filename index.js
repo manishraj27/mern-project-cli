@@ -9,7 +9,7 @@ const program = new Command();
 // Set up the CLI program
 program
   .name("devcli")
-  .description("A CLI tool to scaffold and manage MERN stack projects")
+  .description("A developer-friendly CLI tool that streamlines MERN stack development by automating project setup, database configuration, and boilerplate generation by implementing MVC Architecture. Create production-ready MongoDB, Express, React, and Node.js applications with best practices built-in")
   .version("1.0.0");
 
 // Register commands
