@@ -289,6 +289,13 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 2. **Template System**
    - Custom template support
 
+## 🤝 Contribute to the Project
+We welcome and appreciate contributions to MERN Project Generator CLI! If you’d like to help improve this tool, feel free to:
+- Fork the repository
+- Submit pull requests
+- Open issues for bugs or suggestions
+Your contributions will help make this tool even better for the developer community!
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/manishraj27/mern-project-cli?tab=MIT-1-ov-file) file for details.
