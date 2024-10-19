@@ -33,6 +33,7 @@ Are you tired of:
   - [2. devcli mongodb-connect](#2-connect-mongodb)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
+- [Contribute](#-contribute-to-the-project)
 - [License](#-license)
 - [Support the project](#-support-the-project)
 
