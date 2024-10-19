@@ -4,9 +4,7 @@
 > Create production-ready MERN stack projects in seconds!
 
 ![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
-
 ![NPM Total Downloads](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
-
 [![Node.js Package](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml)
 
 Are you tired of:
@@ -28,14 +26,16 @@ Are you tired of:
 - **Git Ready**: Initialized Git repository with proper `.gitignore` files
 
 ## 📑 Index
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Commands](#commands)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Commands](#%EF%B8%8F-commands)
   - [1. devcli create](#1-create-mern-project)
   - [2. devcli mongodb-connect](#2-connect-mongodb)
-- [Complete User Journey Example](#Complete-User-Journey-Example)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
+- [Complete User Journey Example](#-Complete-User-Journey-Example)
+- [Future Enhancements](#-future-enhancements)
+- [Contribute](#-contribute-to-the-project)
+- [License](#-license)
+- [Support the project](#-support-the-project)
 
 ## ⚡ Requirements
 
@@ -290,9 +290,16 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 2. **Template System**
    - Custom template support
 
+## 🤝 Contribute to the Project
+We welcome and appreciate contributions to MERN Project Generator CLI! If you’d like to help improve this tool, feel free to:
+- Fork the repository
+- Submit pull requests
+- Open issues for bugs or suggestions
+Your contributions will help make this tool even better for the developer community!
+
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE]() file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/manishraj27/mern-project-cli?tab=MIT-1-ov-file) file for details.
 
 ## 🌟 Support the Project
 
