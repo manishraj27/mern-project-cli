@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "devcli": "./index.js"
+    "devcli": "index.js"
   },
   "scripts": {
     "start": "node index.js"
@@ -47,7 +47,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/manishraj27/mern-project-cli"
+    "url": "git+https://github.com/manishraj27/mern-project-cli.git"
   },
   "homepage": "https://devcli.vercel.app"
 }
