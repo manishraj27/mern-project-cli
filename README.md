@@ -2,6 +2,7 @@
 
 # 🚀 MERN Project Generator CLI
 > Create production-ready MERN stack projects in seconds!
+### Website [https://devcli.vercel.app](https://devcli.vercel.app)
 
 ![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
 ![NPM Total Downloads](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
@@ -21,6 +22,7 @@ Are you tired of:
 - **One Command Setup**: Generate both frontend and backend with a single command
 - **Industry-Standard Structure**: Pre-configured folder structure following best practices
 - **Instant MongoDB Integration**: Connect to MongoDB with zero configuration
+- **Generate Mongoose Schema**: Generate Mongoose Schema with just one command
 - **Development Ready**: Hot-reloading enabled for both frontend and backend
 - **Pre-configured Environment**: `.env.example` files included with sensible defaults
 - **Git Ready**: Initialized Git repository with proper `.gitignore` files
@@ -31,6 +33,7 @@ Are you tired of:
 - [Commands](#%EF%B8%8F-commands)
   - [1. devcli create](#1-create-mern-project)
   - [2. devcli mongodb-connect](#2-connect-mongodb)
+  - [3. devcli mongoose-schema](#3-mongoose-schema)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -42,16 +45,8 @@ Are you tired of:
 Before you begin, ensure your system meets these requirements:
 
 - **Node.js**: Version 14.x or higher
-  - Check with: `node --version`
-  - Download from: [nodejs.org](https://nodejs.org)
-
 - **npm**: Version 6.x or higher
-  - Check with: `npm --version`
-  - Comes with Node.js installation
-
 - **MongoDB**: Local or remote installation
-  - Local installation: [MongoDB Community Server](https://www.mongodb.com/try/download/community)
-  - Cloud option: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ## 📦 Installation
 
@@ -187,6 +182,35 @@ mongoose.connect(dburl)
   .catch((err) => console.log(err.message));
 ```
 
+### 3. Generate Mongoose Schema
+- Create mongoose schema for your backend.
+```bash
+devcli devcli mongoose-schema <schema-name> <fieldName:fieldType fieldName:fieldType ...>
+
+```
+Example
+```bash
+devcli mongoose-schema User name:String email:String password:String
+```
+This will create a ```User.js``` file with a Mongoose schema inside the ```models/``` directory:
+```javascript
+//models/User.js
+import mongoose from 'mongoose';
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true }
+});
+
+const User = mongoose.model('User', UserSchema);
+export default User;
+
+```
+
+#### Explanation:
+The ```mongoose-schema``` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the ```models/``` folder.
+
 ## 📖 Complete User Journey Example
 
 Let's create a blog application from scratch:
@@ -209,6 +233,9 @@ npm start
 # Step 5: Connect MongoDB (optional)
 cd ../backend
 devcli mongodb-connect
+
+# Step 6: Generate Mongoose Scheama (optional)
+devcli mongoose-schema Blog name:String category:String
 
 🎉 Congratulations! Your blog application structure is ready with:
 - Backend running on `http://localhost:5000`
@@ -273,6 +300,7 @@ npm run eject   # Eject from Create React App
 - **Development Mode**: Hot-reloading for both frontend and backend
 - **API Ready**: Basic API structure with examples
 - **Database Connected**: MongoDB configuration with just one command
+- **Generate Schema**: Generate Mongoose Schema with one command
 - **Environment Ready**: Pre-configured environment files
 - **Version Control**: Git initialized with proper `.gitignore` files
 
@@ -282,7 +310,6 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 ## 🔮 Future Enhancements
 
 1. **Code Generation**
-   - Database schema generator
    - API route generator
    - React component generator
    - CRUD operations generator
@@ -305,6 +332,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 If you find this tool helpful, please consider:
 - Giving it a star on [GitHub](https://github.com/manishraj27/mern-project-cli)
+- View on NPM [mern-project-cli](https://www.npmjs.com/package/mern-project-cli)
 - Sharing it with your fellow developers
 - Contributing to its development
 ---
