@@ -2,20 +2,16 @@
 
 # 🚀 MERN Project Generator CLI
 > Create production-ready MERN stack projects in seconds!
+### NPM Package Website [mern-project-cli](https://www.npmjs.com/package/mern-project-cli)
 ### Website [https://devcli.vercel.app](https://devcli.vercel.app)
 
 ![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
 ![NPM Total Downloads](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
 [![Node.js Package](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml)
 
-Are you tired of:
-- ⏰ Spending hours setting up basic MERN project structures?
-- 🔧 Configuring MongoDB connections from scratch?
-- 📁 Creating the same folder structure over and over?
-- 🎯 Missing important configurations in your initial setup?
-- 🔄 Copying boilerplate code from old projects?
+**MERN Project Generator CLI** is a powerful tool designed to simplify the process of setting up a complete, production-ready MERN stack project in seconds.
 
-**MERN Project Generator CLI** is your ultimate solution! In just seconds, create a complete, production-ready MongoDB, Express, React, and Node.js project structure with a single command. 
+This tool eliminates the need for manual configurations, boilerplate code copying, and repetitive tasks, allowing developers to start building their apps right away with best practices in place. Perfect for both beginners and experienced developers, it saves time and ensures a solid project foundation.
 
 ## ✨ Features
 
@@ -277,7 +273,7 @@ npm test        # Run tests
 npm run eject   # Eject from Create React App
 ```
 
-
+<!-- 
 ### Why Choose MERN Project Generator CLI?
 
 #### 🎯 Perfect For:
@@ -305,24 +301,16 @@ npm run eject   # Eject from Create React App
 - **Version Control**: Git initialized with proper `.gitignore` files
 
 Skip the boring setup and jump straight into building your next big idea! Whether you're creating a quick prototype, starting a serious project, or learning the MERN stack, this CLI tool gives you the perfect foundation to build upon.
-
+ -->
 
 ## 🔮 Future Enhancements
 
 1. **Code Generation**
-   - API route generator
-   - React component generator
-   - CRUD operations generator
+   - More Code-Snippets
 
-2. **Template System**
-   - Custom template support
 
 ## 🤝 Contribute to the Project
-We welcome and appreciate contributions to MERN Project Generator CLI! If you’d like to help improve this tool, feel free to:
-- Fork the repository
-- Submit pull requests
-- Open issues for bugs or suggestions
-Your contributions will help make this tool even better for the developer community!
+We welcome and appreciate contributions to MERN Project Generator CLI! If you’d like to help improve this tool, feel free to do so.
 
 ## 📄 License
 
