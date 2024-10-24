@@ -97,70 +97,84 @@ Then import your slice in the store.js and use it in your components.
   }
 }
 
-
+//slice file synch
 function createReduxSlice(baseDir, options) {
   const { slice: sliceName, actions = "", state = "" } = options;
 
-  // Parse actions and state
-  const actionList = actions.split(",").map(action => action.trim()).filter(Boolean); // Ensure we have clean action names
+  // Define the path for the slice
+  const slicePath = path.join(baseDir, "store", "slices", `${sliceName}Slice.js`);
+
+  let sliceContent;
+  let existingActions = [];
+  let existingState = {};
+
+  try {
+    // Check if the slice file exists
+    if (fs.existsSync(slicePath)) {
+      // Read the existing slice content
+      sliceContent = fs.readFileSync(slicePath, "utf8");
+
+      // Extract existing actions
+      const actionRegex = /const { (.*) } = (.*).actions;/;
+      const matches = sliceContent.match(actionRegex);
+      if (matches) {
+        existingActions = matches[1].split(',').map(action => action.trim());
+      }
+
+      // Extract existing initial state
+      const initialStateRegex = /const initialState = ({[^}]*});/;
+      const initialStateMatch = sliceContent.match(initialStateRegex);
+      if (initialStateMatch) {
+        existingState = JSON.parse(initialStateMatch[1]);
+      }
+    } else {
+      // Initialize default values if slice does not exist
+      sliceContent = '';
+    }
+  } catch (error) {
+    console.error(chalk.red(`❌ Failed to read existing slice: ${error.message}`));
+    return;
+  }
+
+  // Parse new actions
+  const actionList = actions.split(",").map(action => action.trim()).filter(Boolean);
+  const newActions = actionList.filter(action => !existingActions.includes(action));
+  
+  // Parse new state
   const stateFields = state.split(",").reduce((acc, field) => {
     const [name, type] = field.split(":");
-    if (!field.includes(":")) return acc;
-    acc[name.trim()] = type === "array" ? [] : type === "boolean" ? false : "";
+    if (!name || !type) return acc; // Ensure valid format
+    acc[name.trim()] = type === "array" ? [] : type === "boolean" ? false : type === "number" ? 0 : "";
     return acc;
   }, {});
 
+  // Update existing state with new state fields
+  Object.assign(existingState, stateFields);
+
   // Create slice content
-  const sliceContent = `
+  sliceContent = `
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = ${JSON.stringify(stateFields, null, 2)};
+const initialState = ${JSON.stringify(existingState, null, 2)};
 
 const ${sliceName}Slice = createSlice({
   name: '${sliceName}',
   initialState,
-  reducers: {${actionList.map(action => `
+  reducers: {${existingActions.concat(newActions).map(action => `
     ${action}: (state, action) => {
       // Implement ${action} logic here
-    }`).join(",")}
-  },
+    }`).join(",")}}
 });
 
-export const { ${actionList.join(", ")} } = ${sliceName}Slice.actions;
+export const { ${existingActions.concat(newActions).join(", ")} } = ${sliceName}Slice.actions;
 export default ${sliceName}Slice.reducer;
 `;
 
   try {
-    const slicePath = path.join(
-      baseDir,
-      "store",
-      "slices",
-      `${sliceName}Slice.js`
-    );
+    // Write the updated slice content to the file
     fs.writeFileSync(slicePath, sliceContent);
-
-    // Update store.js to include the new reducer
-    const storePath = path.join(baseDir, "store", "store.js");
-    let storeContent = fs.readFileSync(storePath, "utf8");
-
-    // Add import statement
-    const importStatement = `import ${sliceName}Reducer from './slices/${sliceName}Slice';`;
-    storeContent = importStatement + "\n" + storeContent;
-
-    // Add reducer to configuration
-    storeContent = storeContent.replace(
-      "reducer: {",
-      `reducer: {\n    ${sliceName}: ${sliceName}Reducer,`
-    );
-
-    fs.writeFileSync(storePath, storeContent);
-
-    console.log(
-      chalk.green(`✅ Redux slice '${sliceName}' created successfully`)
-    );
+    console.log(chalk.green(`✅ Redux slice '${sliceName}' updated successfully`));
   } catch (error) {
-    console.error(
-      chalk.red(`❌ Failed to create Redux slice: ${error.message}`)
-    );
+    console.error(chalk.red(`❌ Failed to update Redux slice: ${error.message}`));
   }
 }
