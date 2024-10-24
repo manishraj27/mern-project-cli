@@ -30,6 +30,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [1. devcli create](#1-create-mern-project)
   - [2. devcli mongodb-connect](#2-connect-mongodb)
   - [3. devcli mongoose-schema](#3-mongoose-schema)
+  - [4. devcli add-redux](#4-add-redux)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -97,17 +98,9 @@ your-project-name/
 ```
 
 ##### 2. **Installs Dependencies**:
-   - Backend:
-     - Express
-     - Mongoose
-     - CORS
-     - dotenv
-     - nodemon (dev dependency)
-   - Frontend:
-     - React
-     - React Router
-     - Axios
-     - Other Create React App dependencies
+   - Backend: Express, Mongoose, CORS, dotenv, nodemon.
+   - Frontend: React, React Router, Axios, Other Create React App dependencies.
+
 
 
 #### After Creation:
@@ -184,7 +177,7 @@ mongoose.connect(dburl)
 devcli devcli mongoose-schema <schema-name> <fieldName:fieldType fieldName:fieldType ...>
 
 ```
-Example
+#### Usage Example
 ```bash
 devcli mongoose-schema User name:String email:String password:String
 ```
@@ -206,6 +199,73 @@ export default User;
 
 #### Explanation:
 The ```mongoose-schema``` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the ```models/``` folder.
+
+### 4. Add Redux 
+Set up Redux in your project or add new Redux slices.
+
+#### Initialize Redux
+```bash
+devcli add-redux --init
+```
+###### What does this command do:
+- Sets up Redux store configuration
+- Creates necessary store files and directories
+- Installs required dependencies (@reduxjs/toolkit and react-redux)
+- Creates hooks for easier Redux usage
+
+#### Create Redux Slice
+```bash
+devcli add-redux --slice <sliceName> --actions="action1,action2" --state="field1:type,field2:type"
+```
+
+Options:
+- `--slice`: Name of the slice to create
+- `--actions`: Comma-separated list of actions for the slice
+- `--state`: Initial state fields with types (string, boolean, array)
+
+#### Usage Example:
+```bash
+devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
+```
+
+This creates:
+- A new slice file in `src/store/slices`
+- Boilerplate for specified actions
+- Initial state with typed fields
+- Automatic integration with the Redux store
+
+
+#### Example Generated Redux Slice
+When you run the command:
+```bash
+devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
+```
+
+It generates the following slice in `src/store/slices/userSlice.js`:
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  username: "",
+  isLoggedIn: false
+};
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    login: (state, action) => {
+      // Implement login logic here
+    },
+    logout: (state, action) => {
+      // Implement logout logic here
+    }
+  },
+});
+
+export const { login, logout } = userSlice.actions;
+export default userSlice.reducer;
+```
 
 ## 📖 Complete User Journey Example
 
@@ -233,6 +293,14 @@ devcli mongodb-connect
 # Step 6: Generate Mongoose Scheama (optional)
 devcli mongoose-schema Blog name:String category:String
 
+
+# Step 7: Set up Redux
+cd ../frontend
+devcli add-redux --init
+
+# Step 8: Create blog slice for Redux
+devcli add-redux --slice blog --actions="addPost,deletePost,updatePost" --state="posts:array,loading:boolean"
+
 🎉 Congratulations! Your blog application structure is ready with:
 - Backend running on `http://localhost:5000`
 - Frontend running on `http://localhost:3000`
@@ -257,21 +325,85 @@ REACT_APP_API_URL=http://localhost:5000
 
 ```
 
-## 🔧 Development Commands
+## 🔧 Available Commands
 
-### Backend Commands
+### CLI Commands
+
+#### Project Setup
 ```bash
-npm run dev     # Start with auto-reload (development)
-npm start       # Start without auto-reload (production)
+npm install -g mern-project-cli    # Install CLI globally
+devcli --version                   # Check CLI version
+devcli create <project-name>       # Create new MERN project
 ```
 
-### Frontend Commands
+#### Backend CLI Commands
 ```bash
-npm start       # Start development server
-npm run build   # Create production build
-npm test        # Run tests
-npm run eject   # Eject from Create React App
+# Database Connection
+devcli mongodb-connect                                          # Connect MongoDB using project name
+devcli mongodb-connect -p custom-name                           # Connect with custom database name
+
+# Schema Generation
+devcli mongoose-schema <schema-name> <fieldName:fieldType ...>  # Generate Mongoose schema
+# Example: devcli mongoose-schema User name:String email:String password:String
 ```
+
+#### Frontend CLI Commands
+```bash
+# Redux Setup
+devcli add-redux --init                                          # Initialize Redux in frontend
+devcli add-redux --slice <name> --actions="action1,action2" --state="field1:type,field2:type"       #Create Slice
+# Example: devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
+```
+
+### Development Commands
+
+#### Backend Development
+```bash
+cd backend                 # Navigate to backend directory
+npm install                # Install dependencies
+npm run dev                # Start with auto-reload (development)
+npm start                  # Start without auto-reload (production)
+```
+
+#### Frontend Development
+```bash
+cd frontend                # Navigate to frontend directory
+npm install                # Install dependencies
+npm start                  # Start development server
+
+```
+<!-- 
+### CLI Options
+
+#### Backend Options
+```bash
+# MongoDB Connect Options
+-p, --project <name>      # Specify custom database name
+
+# Mongoose Schema Options
+<schema-name>             # Name of the schema to generate
+<fieldName:fieldType>     # Field definitions (e.g., name:String)
+```
+
+#### Frontend Options
+```bash
+# Redux Options
+--init                    # Initialize Redux setup
+--slice <name>           # Create a new Redux slice
+--actions <actions>      # Comma-separated list of actions (e.g., "login,logout")
+--state <state>          # Initial state fields (e.g., "username:string,isLoggedIn:boolean")
+``` -->
+<!-- 
+### Common Project Commands
+```bash
+# Start both frontend and backend (from project root)
+cd backend && npm run dev  # Terminal 1
+cd frontend && npm start  # Terminal 2
+
+# Install all dependencies (from project root)
+cd backend && npm install
+cd frontend && npm install
+``` -->
 
 <!-- 
 ### Why Choose MERN Project Generator CLI?
@@ -306,7 +438,7 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 ## 🔮 Future Enhancements
 
 1. **Code Generation**
-   - More Code-Snippets
+    More Code-Snippets
 
 
 ## 🤝 Contribute to the Project
