@@ -11,7 +11,7 @@ export default function mongodbConnectCommand(program) {
       // Detect if we're in the backend folder or project root
       const currentDir = process.cwd();
       const isInBackend = path.basename(currentDir) === 'backend';
-      
+
       // If in backend, try to get project name from parent directory
       let projectName = options.project;
       if (!projectName && isInBackend) {
@@ -21,13 +21,13 @@ export default function mongodbConnectCommand(program) {
       }
 
       // Convert project name to database name format (lowercase, underscores)
-      const dbName = projectName.toLowerCase().replace(/-/g, '_');
-      
+      const dbName = process.env.DB_NAME || projectName.toLowerCase().replace(/-/g, '_');
+
       // Set paths based on current location
-      const dbDir = isInBackend 
+      const dbDir = isInBackend
         ? path.join(currentDir, 'db')
         : path.join(currentDir, 'backend', 'db');
-      
+
       const serverFilePath = isInBackend
         ? path.join(currentDir, 'server.js')
         : path.join(currentDir, 'backend', 'server.js');
@@ -37,7 +37,7 @@ export default function mongodbConnectCommand(program) {
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const dburl = process.env.DB_URL || "mongodb://localhost:27017/${dbName}_db";
+const dburl = process.env.DB_URL || "mongodb://localhost:27017/${dbName || 'mydatabase'}";
 mongoose.connect(dburl).then(() => {
     console.log("Connected to DB Successfully");
 }).catch((err) => {
@@ -74,7 +74,7 @@ mongoose.connect(dburl).then(() => {
       try {
         // Read existing content of server.js
         const serverContent = fs.readFileSync(serverFilePath, 'utf8');
-        
+
         // Check if the connection is already required
         if (!serverContent.includes("require('./db/connection')")) {
           // Add the require statement after the other requires
@@ -82,7 +82,7 @@ mongoose.connect(dburl).then(() => {
             "require('dotenv').config();",
             "require('dotenv').config();\nconst dbconnection = require('./db/connection');"
           );
-          
+
           fs.writeFileSync(serverFilePath, updatedContent);
           console.log(chalk.green('✅ MongoDB connection import added to server.js'));
         } else {

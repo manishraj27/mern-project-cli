@@ -1,0 +1,34 @@
+# version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      DB_URL: mongodb://mongo:27017/mydatabase # you can change db name here to your liking
+      # this doesnt work since for that we need .env on same level
+      # DB_URL: mongodb://mongo:27017/${DB_NAME}
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+    depends_on:
+      - backend # Ensure the backend is started before the frontend
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
