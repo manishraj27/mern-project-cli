@@ -1,11 +1,11 @@
-import fs from "fs-extra";
-import path from "path";
-import chalk from "chalk";
-import { execSync } from "child_process";
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
+import { execSync } from 'child_process';
 
 function checkNodeVersion() {
   const currentVersion = process.versions.node;
-  const majorVersion = currentVersion.split(".")[0];
+  const majorVersion = currentVersion.split('.')[0];
   if (majorVersion < 14) {
     console.error(
       `Your Node.js version (${currentVersion}) is not supported. Please use Node.js 14.x or higher.`
@@ -19,12 +19,12 @@ function createShadcnProject(projectName) {
   const rootDir = path.join(process.cwd(), projectName);
 
   // Step 1-4: Create Vite Project
-  console.log("📦 Creating Vite React project...");
+  console.log('📦 Creating Vite React project...');
   try {
     execSync(`npm create vite@latest ${projectName} -- --template react-swc`, {
-      stdio: "inherit",
+      stdio: 'inherit',
     });
-    console.log("✅ Vite project created successfully.");
+    console.log('✅ Vite project created successfully.');
   } catch (error) {
     console.error(`❌ Failed to create Vite project: ${error.message}`);
     process.exit(1);
@@ -34,23 +34,23 @@ function createShadcnProject(projectName) {
   process.chdir(rootDir);
 
   // Step 4: Install dependencies
-  console.log("📦 Installing dependencies...");
+  console.log('📦 Installing dependencies...');
   try {
-    execSync("npm install", { stdio: "inherit" });
-    console.log("✅ Dependencies installed successfully.");
+    execSync('npm install', { stdio: 'inherit' });
+    console.log('✅ Dependencies installed successfully.');
   } catch (error) {
     console.error(`❌ Failed to install dependencies: ${error.message}`);
     process.exit(1);
   }
 
   // Step 5: Install Tailwind and related packages
-  console.log("📦 Installing Tailwind CSS...");
+  console.log('📦 Installing Tailwind CSS...');
   try {
-    execSync("npm install -D tailwindcss postcss autoprefixer", {
-      stdio: "inherit",
+    execSync('npm install -D tailwindcss postcss autoprefixer', {
+      stdio: 'inherit',
     });
-    execSync("npx tailwindcss init -p", { stdio: "inherit" });
-    console.log("✅ Tailwind CSS installed successfully.");
+    execSync('npx tailwindcss init -p', { stdio: 'inherit' });
+    console.log('✅ Tailwind CSS installed successfully.');
   } catch (error) {
     console.error(`❌ Failed to install Tailwind CSS: ${error.message}`);
     process.exit(1);
@@ -71,8 +71,8 @@ plugins: [],
 }`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "tailwind.config.js"), tailwindConfig);
-    console.log("✅ Tailwind config updated.");
+    fs.writeFileSync(path.join(rootDir, 'tailwind.config.js'), tailwindConfig);
+    console.log('✅ Tailwind config updated.');
   } catch (error) {
     console.error(`❌ Failed to update Tailwind config: ${error.message}`);
     process.exit(1);
@@ -84,8 +84,8 @@ plugins: [],
 @tailwind utilities;`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "src", "index.css"), indexCss);
-    console.log("✅ index.css updated.");
+    fs.writeFileSync(path.join(rootDir, 'src', 'index.css'), indexCss);
+    console.log('✅ index.css updated.');
   } catch (error) {
     console.error(`❌ Failed to update index.css: ${error.message}`);
     process.exit(1);
@@ -94,19 +94,19 @@ plugins: [],
   // Step 8: Create jsconfig.json
   const jsConfig = {
     compilerOptions: {
-      baseUrl: ".",
+      baseUrl: '.',
       paths: {
-        "@/*": ["./src/*"],
+        '@/*': ['./src/*'],
       },
     },
   };
 
   try {
     fs.writeFileSync(
-      path.join(rootDir, "jsconfig.json"),
+      path.join(rootDir, 'jsconfig.json'),
       JSON.stringify(jsConfig, null, 2)
     );
-    console.log("✅ jsconfig.json created.");
+    console.log('✅ jsconfig.json created.');
   } catch (error) {
     console.error(`❌ Failed to create jsconfig.json: ${error.message}`);
     process.exit(1);
@@ -127,46 +127,46 @@ alias: {
 })`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "vite.config.js"), viteConfig);
-    console.log("✅ vite.config.js updated.");
+    fs.writeFileSync(path.join(rootDir, 'vite.config.js'), viteConfig);
+    console.log('✅ vite.config.js updated.');
   } catch (error) {
     console.error(`❌ Failed to update vite.config.js: ${error.message}`);
     process.exit(1);
   }
 
   // Step 10-11: Initialize Shadcn
-  console.log("📦 Installing Shadcn...");
+  console.log('📦 Installing Shadcn...');
   try {
     // Create components.json with predefined configuration
     const componentsConfig = {
-      $schema: "https://ui.shadcn.com/schema.json",
-      style: "new-york",
+      $schema: 'https://ui.shadcn.com/schema.json',
+      style: 'new-york',
       tailwind: {
-        config: "tailwind.config.js",
-        css: "src/index.css",
-        baseColor: "zinc",
+        config: 'tailwind.config.js',
+        css: 'src/index.css',
+        baseColor: 'zinc',
         cssVariables: true,
       },
       rsc: false,
       aliases: {
-        components: "@/components",
-        utils: "@/lib/utils",
+        components: '@/components',
+        utils: '@/lib/utils',
       },
     };
 
     fs.writeFileSync(
-      path.join(rootDir, "components.json"),
+      path.join(rootDir, 'components.json'),
       JSON.stringify(componentsConfig, null, 2)
     );
 
     // Install required dependencies for Shadcn
     execSync(
-      "npm install class-variance-authority clsx tailwind-merge lucide-react",
-      { stdio: "inherit" }
+      'npm install class-variance-authority clsx tailwind-merge lucide-react',
+      { stdio: 'inherit' }
     );
 
     // Create utils.js
-    const utilsDir = path.join(rootDir, "src", "lib");
+    const utilsDir = path.join(rootDir, 'src', 'lib');
     fs.mkdirSync(utilsDir, { recursive: true });
     const utilsContent = `import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -174,19 +174,19 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs) {
 return twMerge(clsx(inputs))
 }`;
-    fs.writeFileSync(path.join(utilsDir, "utils.js"), utilsContent);
+    fs.writeFileSync(path.join(utilsDir, 'utils.js'), utilsContent);
 
-    console.log("✅ Shadcn initialized successfully.");
+    console.log('✅ Shadcn initialized successfully.');
   } catch (error) {
     console.error(`❌ Failed to initialize Shadcn: ${error.message}`);
     process.exit(1);
   }
 
   // Step 13: Add button component
-  console.log("📦 Adding button component...");
+  console.log('📦 Adding button component...');
   try {
-    execSync("npx shadcn@latest add button", { stdio: "inherit" });
-    console.log("✅ Button component added successfully.");
+    execSync('npx shadcn@latest add button', { stdio: 'inherit' });
+    console.log('✅ Button component added successfully.');
   } catch (error) {
     console.error(`❌ Failed to add button component: ${error.message}`);
     process.exit(1);
@@ -244,18 +244,18 @@ export default App;
 `;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "src", "App.jsx"), appJsx);
-    console.log("✅ App.jsx updated.");
+    fs.writeFileSync(path.join(rootDir, 'src', 'App.jsx'), appJsx);
+    console.log('✅ App.jsx updated.');
   } catch (error) {
     console.error(`❌ Failed to update App.jsx: ${error.message}`);
     process.exit(1);
   }
 
   // Step 15: Install additional dependencies
-  console.log("📦 Installing additional dependencies...");
+  console.log('📦 Installing additional dependencies...');
   try {
-    execSync("npm install @vitejs/plugin-react", { stdio: "inherit" });
-    console.log("✅ Additional dependencies installed successfully.");
+    execSync('npm install @vitejs/plugin-react', { stdio: 'inherit' });
+    console.log('✅ Additional dependencies installed successfully.');
   } catch (error) {
     console.error(
       `❌ Failed to install additional dependencies: ${error.message}`
@@ -269,17 +269,17 @@ export default App;
   );
 
   console.log(
-    `${chalk.green.bold("To get started:")}
+    `${chalk.green.bold('To get started:')}
 ${chalk.blue(`cd ${projectName}`)}
-${chalk.yellow("npm run dev")}
+${chalk.yellow('npm run dev')}
 
-${chalk.magenta.bold("Available commands:")}
-${chalk.yellow("npm run dev")} - Start development server
-${chalk.yellow("npm run build")} - Build for production
-${chalk.yellow("npm run preview")} - Preview production build
+${chalk.magenta.bold('Available commands:')}
+${chalk.yellow('npm run dev')} - Start development server
+${chalk.yellow('npm run build')} - Build for production
+${chalk.yellow('npm run preview')} - Preview production build
 
-${chalk.cyan.bold("To add more Shadcn components:")}
-${chalk.yellow("npx shadcn@latest add <component-name>")}
+${chalk.cyan.bold('To add more Shadcn components:')}
+${chalk.yellow('npx shadcn@latest add <component-name>')}
 `
   );
 }
@@ -289,12 +289,12 @@ function createViteProject(projectName) {
   const rootDir = path.join(process.cwd(), projectName);
 
   // Step 1: Create Vite Project
-  console.log("📦 Creating Vite React project...");
+  console.log('📦 Creating Vite React project...');
   try {
     execSync(`npm create vite@latest ${projectName} -- --template react`, {
-      stdio: "inherit",
+      stdio: 'inherit',
     });
-    console.log("✅ Vite project created successfully.");
+    console.log('✅ Vite project created successfully.');
   } catch (error) {
     console.error(`❌ Failed to create Vite project: ${error.message}`);
     process.exit(1);
@@ -304,23 +304,23 @@ function createViteProject(projectName) {
   process.chdir(rootDir);
 
   // Step 2: Install dependencies
-  console.log("📦 Installing dependencies...");
+  console.log('📦 Installing dependencies...');
   try {
-    execSync("npm install", { stdio: "inherit" });
-    console.log("✅ Dependencies installed successfully.");
+    execSync('npm install', { stdio: 'inherit' });
+    console.log('✅ Dependencies installed successfully.');
   } catch (error) {
     console.error(`❌ Failed to install dependencies: ${error.message}`);
     process.exit(1);
   }
 
   // Step 3: Install Tailwind and related packages
-  console.log("📦 Installing Tailwind CSS...");
+  console.log('📦 Installing Tailwind CSS...');
   try {
-    execSync("npm install -D tailwindcss postcss autoprefixer", {
-      stdio: "inherit",
+    execSync('npm install -D tailwindcss postcss autoprefixer', {
+      stdio: 'inherit',
     });
-    execSync("npx tailwindcss init -p", { stdio: "inherit" });
-    console.log("✅ Tailwind CSS installed successfully.");
+    execSync('npx tailwindcss init -p', { stdio: 'inherit' });
+    console.log('✅ Tailwind CSS installed successfully.');
   } catch (error) {
     console.error(`❌ Failed to install Tailwind CSS: ${error.message}`);
     process.exit(1);
@@ -340,8 +340,8 @@ export default {
 }`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "tailwind.config.js"), tailwindConfig);
-    console.log("✅ Tailwind config updated.");
+    fs.writeFileSync(path.join(rootDir, 'tailwind.config.js'), tailwindConfig);
+    console.log('✅ Tailwind config updated.');
   } catch (error) {
     console.error(`❌ Failed to update Tailwind config: ${error.message}`);
     process.exit(1);
@@ -353,8 +353,8 @@ export default {
 @tailwind utilities;`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "src", "index.css"), indexCss);
-    console.log("✅ index.css updated.");
+    fs.writeFileSync(path.join(rootDir, 'src', 'index.css'), indexCss);
+    console.log('✅ index.css updated.');
   } catch (error) {
     console.error(`❌ Failed to update index.css: ${error.message}`);
     process.exit(1);
@@ -409,7 +409,7 @@ export default {
 export default App;`;
 
   try {
-    fs.writeFileSync(path.join(rootDir, "src", "App.jsx"), appJsx);
+    fs.writeFileSync(path.join(rootDir, 'src', 'App.jsx'), appJsx);
   } catch (error) {
     console.error(`❌ Failed to update App.jsx: ${error.message}`);
     process.exit(1);
@@ -421,32 +421,36 @@ export default App;`;
   );
 
   console.log(
-    `${chalk.green.bold("To get started:")}
+    `${chalk.green.bold('To get started:')}
   ${chalk.blue(`cd ${projectName}`)}
-  ${chalk.yellow("npm run dev")}
+  ${chalk.yellow('npm run dev')}
 
-${chalk.magenta.bold("Available commands:")}
-  ${chalk.yellow("npm run dev")} - Start development server
-  ${chalk.yellow("npm run build")} - Build for production
-  ${chalk.yellow("npm run preview")} - Preview production build
+${chalk.magenta.bold('Available commands:')}
+  ${chalk.yellow('npm run dev')} - Start development server
+  ${chalk.yellow('npm run build')} - Build for production
+  ${chalk.yellow('npm run preview')} - Preview production build
 `
   );
 }
 
 export default function createFrontend(program) {
   program
-    .command("create-frontend <projectName>")
-    .description("Create a new React project with optional Shadcn UI and Tailwind CSS")
-    .option("--shadcn", "Include Shadcn UI setup")
-    .option("--vite", "Create basic Vite + Tailwind CSS setup")
+    .command('create-frontend <projectName>')
+    .description(
+      'Create a new React project with optional Shadcn UI and Tailwind CSS'
+    )
+    .option('--shadcn', 'Include Shadcn UI setup')
+    .option('--vite', 'Create basic Vite + Tailwind CSS setup')
     .action(async (projectName, options) => {
       if (!options.shadcn && !options.vite) {
-        console.log("Please use either --shadcn or --vite flag to specify the project type");
+        console.log(
+          'Please use either --shadcn or --vite flag to specify the project type'
+        );
         process.exit(1);
       }
 
       if (options.shadcn && options.vite) {
-        console.log("Please choose only one option: either --shadcn or --vite");
+        console.log('Please choose only one option: either --shadcn or --vite');
         process.exit(1);
       }
 

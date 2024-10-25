@@ -8,7 +8,9 @@
     "devcli": "index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint .",
+  "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "chalk": "^5.3.0",
@@ -20,7 +22,13 @@
     "mongoose": "^5.12.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.11.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^3.3.3"
   },
   "author": "Manish Raj",
   "license": "MIT",

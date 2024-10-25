@@ -1,11 +1,11 @@
-import fs from "fs-extra";
-import path from "path";
-import chalk from "chalk";
-import { execSync } from "child_process";
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
+import { execSync } from 'child_process';
 
 function checkNodeVersion() {
   const currentVersion = process.versions.node;
-  const majorVersion = currentVersion.split(".")[0];
+  const majorVersion = currentVersion.split('.')[0];
   if (majorVersion < 14) {
     console.error(
       `Your Node.js version (${currentVersion}) is not supported. Please use Node.js 14.x or higher.`
@@ -16,8 +16,8 @@ function checkNodeVersion() {
 
 export default function createMERNProjectCommand(program) {
   program
-    .command("create <projectName>")
-    .description("Create a new MERN project")
+    .command('create <projectName>')
+    .description('Create a new MERN project')
     .action((projectName) => {
       // Check Node.js version before proceeding
       checkNodeVersion();
@@ -27,21 +27,21 @@ export default function createMERNProjectCommand(program) {
       // Create root project directory
       try {
         fs.mkdirSync(rootDir, { recursive: true });
-        console.log("✅ Root directory created successfully.");
+        console.log('✅ Root directory created successfully.');
       } catch (error) {
         console.error(`❌ Failed to create root directory: ${error.message}`);
         process.exit(1);
       }
 
-      console.log("📦 Creating backend app...");
-      const backendDir = path.join(rootDir, "backend");
+      console.log('📦 Creating backend app...');
+      const backendDir = path.join(rootDir, 'backend');
       const dirsToCreate = [
-        "controllers",
-        "db",
-        "middlewares",
-        "models",
-        "routes",
-        "utils",
+        'controllers',
+        'db',
+        'middlewares',
+        'models',
+        'routes',
+        'utils',
       ];
 
       try {
@@ -49,7 +49,7 @@ export default function createMERNProjectCommand(program) {
         dirsToCreate.forEach((dir) =>
           fs.mkdirSync(path.join(backendDir, dir), { recursive: true })
         );
-        console.log("✅ Backend directory structure created.");
+        console.log('✅ Backend directory structure created.');
       } catch (error) {
         console.error(
           `❌ Failed to create backend directory structure: ${error.message}`
@@ -60,11 +60,11 @@ export default function createMERNProjectCommand(program) {
       // Backend files creation
       try {
         fs.writeFileSync(
-          path.join(backendDir, "constants.js"),
-          "// TODO: Add application-wide constants"
+          path.join(backendDir, 'constants.js'),
+          '// TODO: Add application-wide constants'
         );
         fs.writeFileSync(
-          path.join(backendDir, "server.js"),
+          path.join(backendDir, 'server.js'),
           `// Entry point of the backend server
 require('dotenv').config();
 const express = require('express');
@@ -85,18 +85,18 @@ app.listen(PORT, () => {
 });`
         );
         fs.writeFileSync(
-          path.join(backendDir, ".env.example"),
+          path.join(backendDir, '.env.example'),
           `# Sample .env file for backend
 PORT=5000
 DB_URI=your_database_uri_here`
         );
         fs.writeFileSync(
-          path.join(backendDir, ".gitignore"),
+          path.join(backendDir, '.gitignore'),
           `node_modules
 .env`
         );
         fs.writeFileSync(
-          path.join(backendDir, "README.md"),
+          path.join(backendDir, 'README.md'),
           `# ${projectName} Backend
 This is the backend of the ${projectName} MERN project.
 
@@ -110,52 +110,52 @@ This is the backend of the ${projectName} MERN project.
 Create a \`.env\` file based on \`.env.example\`.`
         );
         fs.writeFileSync(
-          path.join(backendDir, "package.json"),
+          path.join(backendDir, 'package.json'),
           JSON.stringify(
             {
               name: `${projectName}-backend`,
-              version: "1.0.0",
-              main: "server.js",
+              version: '1.0.0',
+              main: 'server.js',
               scripts: {
-                start: "node server.js",
-                dev: "nodemon server.js",
+                start: 'node server.js',
+                dev: 'nodemon server.js',
               },
               dependencies: {
-                express: "^4.21.1",
-                mongoose: "^8.7.1",
-                cors: "^2.8.5",
-                dotenv: "^16.4.5",
+                express: '^4.21.1',
+                mongoose: '^8.7.1',
+                cors: '^2.8.5',
+                dotenv: '^16.4.5',
               },
               devDependencies: {
-                nodemon: "^3.1.7",
+                nodemon: '^3.1.7',
               },
             },
             null,
             2
           )
         );
-        console.log("✅ Backend files created successfully.");
+        console.log('✅ Backend files created successfully.');
       } catch (error) {
         console.error(`❌ Failed to create backend files: ${error.message}`);
         process.exit(1);
       }
 
       // Initialize Git in backend
-      console.log("🔧 Initializing Git repository in backend...");
+      console.log('🔧 Initializing Git repository in backend...');
       try {
-        execSync(`git init "${backendDir}"`, { stdio: "inherit" });
-        console.log("✅ Git repository initialized in backend.");
-      } catch (error) {
+        execSync(`git init "${backendDir}"`, { stdio: 'inherit' });
+        console.log('✅ Git repository initialized in backend.');
+      } catch {
         console.warn(
-          "⚠️ Git is not installed or an error occurred. Skipping Git initialization."
+          '⚠️ Git is not installed or an error occurred. Skipping Git initialization.'
         );
       }
 
       // Install backend dependencies
-      console.log("📦 Installing backend dependencies...");
+      console.log('📦 Installing backend dependencies...');
       try {
-        execSync("npm install", { cwd: backendDir, stdio: "inherit" });
-        console.log("✅ Backend dependencies installed.");
+        execSync('npm install', { cwd: backendDir, stdio: 'inherit' });
+        console.log('✅ Backend dependencies installed.');
       } catch (error) {
         console.error(
           `❌ Failed to install backend dependencies: ${error.message}`
@@ -164,11 +164,11 @@ Create a \`.env\` file based on \`.env.example\`.`
       }
 
       // Create frontend using create-react-app
-      console.log("📦 Creating React frontend app...");
-      const frontendDir = path.join(rootDir, "frontend");
+      console.log('📦 Creating React frontend app...');
+      const frontendDir = path.join(rootDir, 'frontend');
       try {
-        execSync(`npx create-react-app "${frontendDir}"`, { stdio: "inherit" });
-        console.log("✅ React frontend created successfully.");
+        execSync(`npx create-react-app "${frontendDir}"`, { stdio: 'inherit' });
+        console.log('✅ React frontend created successfully.');
       } catch (error) {
         console.error(`❌ Failed to create React app: ${error.message}`);
         process.exit(1);
@@ -177,11 +177,11 @@ Create a \`.env\` file based on \`.env.example\`.`
       // Create frontend .env.example
       try {
         fs.writeFileSync(
-          path.join(frontendDir, ".env.example"),
+          path.join(frontendDir, '.env.example'),
           `# Sample .env file for frontend
 REACT_APP_API_URL=http://localhost:5000/api`
         );
-        console.log("✅ Frontend .env.example file created.");
+        console.log('✅ Frontend .env.example file created.');
       } catch (error) {
         console.error(
           `❌ Failed to create frontend .env.example file: ${error.message}`
@@ -193,18 +193,18 @@ REACT_APP_API_URL=http://localhost:5000/api`
       console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
 
       console.log(
-        `${chalk.green.bold("To get started:")}
+        `${chalk.green.bold('To get started:')}
   ${chalk.blue(`cd "${projectName}"`)}
 
-${chalk.magenta.bold("Backend:")}
-  ${chalk.blue("cd backend")}
-  ${chalk.yellow("npm start")} ${chalk.cyan("or")} ${chalk.yellow(
-          "npm run dev [nodemon]"
-        )}
+${chalk.magenta.bold('Backend:')}
+  ${chalk.blue('cd backend')}
+  ${chalk.yellow('npm start')} ${chalk.cyan('or')} ${chalk.yellow(
+    'npm run dev [nodemon]'
+  )}
 
-${chalk.magenta.bold("Frontend:")}
-  ${chalk.blue("cd frontend")}
-  ${chalk.yellow("npm start")}`
+${chalk.magenta.bold('Frontend:')}
+  ${chalk.blue('cd frontend')}
+  ${chalk.yellow('npm start')}`
       );
     });
 }

@@ -80,20 +80,19 @@ The project maintainer will review your pull request and provide feedback. Pleas
 
 A PR can only be merged into main by a maintainer if:
 
-* It is passing all checks.
-* It has been approved by at least one maintainer.
-* It has no requested changes.
-* It is up to date with current main.
+- It is passing all checks.
+- It has been approved by at least one maintainer.
+- It has no requested changes.
+- It is up to date with current main.
 
 ## Shipping a release (maintainers only)
 
 Maintainers need to do the following to push out a release:
 
-* Make sure all pull requests are in
-* Update package.json version
-* Create a tag for the version; for example `v1.0.3`
-* Push the tag to the repository
-* Publish to npm: `npm publish`
+- Make sure all pull requests are in
+- Update package.json version
+- Create a tag for the version; for example `v1.0.3`
+- Push the tag to the repository
+- Publish to npm: `npm publish`
 
 Thank you for your contributions!
-
