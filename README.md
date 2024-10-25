@@ -31,6 +31,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [2. devcli mongodb-connect](#2-connect-mongodb)
   - [3. devcli mongoose-schema](#3-mongoose-schema)
   - [4. devcli add-redux](#4-add-redux)
+  - [5. devcli create-frontend <project_name> --shadcn](#5-create-shadcn-frontend)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -266,6 +267,64 @@ const userSlice = createSlice({
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
 ```
+### 5. Create Shadcn Frontend
+
+Create a new React project with Shadcn UI and Tailwind CSS pre-configured with just one command.
+It turns your hour of effort to just seconds.
+
+```bash
+devcli create-frontend <project_name> --shadcn
+```
+
+#### Features
+- Creates a Vite + React project
+- Installs and configures Tailwind CSS
+- Sets up Shadcn UI with New York style and Zinc color scheme
+- Configures project structure with best practices
+- Adds initial button component as example
+- Sets up path aliases for better imports
+- Includes all necessary configuration files
+
+#### Options
+- `--shadcn`: Required flag to include Shadcn UI setup
+
+#### Generated Project Structure
+```
+your-project/
+├── src/
+│   ├── components/
+│   │   └── ui/
+│   │       └── button.jsx
+│   ├── lib/
+│   │   └── utils.js
+│   ├── App.jsx
+│   └── index.css
+├── jsconfig.json
+├── tailwind.config.js
+├── vite.config.js
+└── components.json
+```
+
+#### Usage Example
+```bash
+# Create a new React project with Shadcn UI
+devcli create-frontend my-app --shadcn
+
+# Navigate to project
+cd my-app
+
+# Start development server
+npm run dev
+```
+
+#### After Creation
+- Add more Shadcn components using:
+  ```bash
+  npx shadcn@latest add <component-name>
+  ```
+- Available components can be found at [shadcn/ui components](https://ui.shadcn.com/docs/components)
+- Customize theme in `tailwind.config.js`
+- Add your own components in `src/components`
 
 ## 📖 Complete User Journey Example
 
