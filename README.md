@@ -17,6 +17,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
 
 - **One Command Setup**: Generate both frontend and backend with a single command
 - **Industry-Standard Structure**: Pre-configured folder structure following best practices
+- **Create frontend with shadcn and vite**, a new React project with either Shadcn UI + Tailwind CSS or just Vite + Tailwind CSS using a single command.
 - **Instant MongoDB Integration**: Connect to MongoDB with zero configuration
 - **Generate Mongoose Schema**: Generate Mongoose Schema with just one command
 - **Development Ready**: Hot-reloading enabled for both frontend and backend
@@ -31,7 +32,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [2. devcli mongodb-connect](#2-connect-mongodb)
   - [3. devcli mongoose-schema](#3-mongoose-schema)
   - [4. devcli add-redux](#4-add-redux)
-  - [5. devcli create-frontend <project_name> --shadcn](#5-create-shadcn-frontend)
+  - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -267,16 +268,21 @@ const userSlice = createSlice({
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
 ```
-### 5. Create Shadcn Frontend
+### 5. Create Frontend Project
 
-Create a new React project with Shadcn UI and Tailwind CSS pre-configured with just one command.
-It turns your hour of effort to just seconds.
+Create a new React project with either Shadcn UI + Tailwind CSS or just Vite + Tailwind CSS using a single command.
 
 ```bash
+# Create project with Shadcn UI
 devcli create-frontend <project_name> --shadcn
+
+# Create project with Vite + Tailwind CSS
+devcli create-frontend <project_name> --vite
 ```
 
 #### Features
+
+##### With --shadcn flag:
 - Creates a Vite + React project
 - Installs and configures Tailwind CSS
 - Sets up Shadcn UI with New York style and Zinc color scheme
@@ -285,10 +291,31 @@ devcli create-frontend <project_name> --shadcn
 - Sets up path aliases for better imports
 - Includes all necessary configuration files
 
-#### Options
-- `--shadcn`: Required flag to include Shadcn UI setup
+##### With --vite flag:
+- Creates a basic Vite + React project
+- Installs and configures Tailwind CSS
+- Sets up minimal project structure
+- Includes starter template with modern styling
 
-#### Generated Project Structure
+#### Options
+- `--shadcn`: Include Shadcn UI setup with Tailwind CSS
+- `--vite`: Create basic Vite project with Tailwind CSS only
+
+#### Usage Examples
+```bash
+# Create a new React project with Shadcn UI
+devcli create-frontend my-app --shadcn
+
+# Create a new React project with just Vite + Tailwind
+devcli create-frontend my-app --vite
+
+# Navigate to project
+cd my-app
+
+# Start development server
+npm run dev
+```
+#### Generated Project Structure with --shadcn
 ```
 your-project/
 ├── src/
@@ -304,20 +331,7 @@ your-project/
 ├── vite.config.js
 └── components.json
 ```
-
-#### Usage Example
-```bash
-# Create a new React project with Shadcn UI
-devcli create-frontend my-app --shadcn
-
-# Navigate to project
-cd my-app
-
-# Start development server
-npm run dev
-```
-
-#### After Creation
+#### After Creation with --shadcn
 - Add more Shadcn components using:
   ```bash
   npx shadcn@latest add <component-name>
@@ -325,6 +339,7 @@ npm run dev
 - Available components can be found at [shadcn/ui components](https://ui.shadcn.com/docs/components)
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
+
 
 ## 📖 Complete User Journey Example
 
@@ -393,6 +408,12 @@ REACT_APP_API_URL=http://localhost:5000
 npm install -g mern-project-cli    # Install CLI globally
 devcli --version                   # Check CLI version
 devcli create <project-name>       # Create new MERN project
+```
+```bash
+OR [Create frontend with shadcn+tailwind/ vite+tailwind]
+
+devcli create-frontend <project-name> --shadcn    # shadcn-frontend
+devcli create-frontend <project-name> --vite      # vite-frontend
 ```
 
 #### Backend CLI Commands
