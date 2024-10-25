@@ -1,98 +1,159 @@
-# Contributing to MERN Project CLI
+# Contributing to MERN Project Generator CLI
 
-First off, thank you for considering contributing to MERN Project CLI! It's people like you that make it such a great tool.
+Thank you for your interest in contributing to MERN Project Generator CLI! We're excited to welcome contributors who want to help improve this tool for the developer community. This document provides guidelines and instructions for contributing.
 
-## Where do I go from here?
+## 📝 Table of Contents
+- [Code of Conduct](#code-of-conduct)
+- [Getting Started](#getting-started)
+- [Development Process](#development-process)
+- [Pull Request Process](#pull-request-process)
+- [Reporting Bugs](#reporting-bugs)
+- [Feature Requests](#feature-requests)
+- [Style Guidelines](#style-guidelines)
+- [Community](#community)
 
-If you've noticed a bug or have a feature request, make sure to check our [Issues](https://github.com/manishraj27/mern-project-cli/issues) page to see if someone else in the community has already created a ticket. If not, go ahead and [make one](https://github.com/manishraj27/mern-project-cli/issues/new)!
+## Code of Conduct
 
-## Fork & create a branch
+By participating in this project, you agree to maintain a respectful and inclusive environment for all contributors. Please:
 
-If this is something you think you can fix, then [fork MERN Project CLI](https://help.github.com/articles/fork-a-repo) and create a branch with a descriptive name.
+- Use welcoming and inclusive language
+- Be respectful of differing viewpoints and experiences
+- Accept constructive criticism gracefully
+- Focus on what is best for the community
+- Show empathy towards other community members
 
-A good branch name would be (Example: where issue #12 is the ticket you're working on):
+## Getting Started
 
-```sh
-git checkout -b 12-add-new-template
-```
-
-## Get the development environment running
-
-Make sure you're using a recent version of Node.js, preferably version 14.x or higher.
-
-Clone your fork and install the project dependencies:
-
-```sh
+1. Fork the repository
+2. Clone your fork:
+```bash
 git clone https://github.com/your-username/mern-project-cli.git
 cd mern-project-cli
+```
+3. Install dependencies:
+```bash
 npm install
 ```
-
-## Implement your fix or feature
-
-At this point, you're ready to make your changes! Feel free to ask for help; everyone is a beginner at first.
-
-## Make sure your changes work
-
-Before submitting your pull request, make sure that the project still works and that your changes don't introduce any errors. You can test this by running the CLI tool locally:
-
-```sh
-node index.js your-project-name
+4. Create a new branch for your feature/fix:
+```bash
+git checkout -b feature/your-feature-name
 ```
 
-## Make a Pull Request
+## Development Process
 
-At this point, you should switch back to your main branch and make sure it's up to date with the latest MERN Project CLI main branch:
+1. **Set up your development environment**
+   - Ensure you have Node.js (v14 or higher) installed
+   - Install all dependencies using `npm install`
+   - Link the package locally using `npm link`
 
-```sh
-git remote add upstream https://github.com/manishraj27/mern-project-cli.git
-git checkout main
-git pull upstream main
+2. **Make your changes**
+   - Write clear, concise commit messages
+   - Add tests for new features
+   - Update documentation as needed
+
+3. **Test your changes**
+   ```bash
+   npm test                 # Run tests
+   npm run lint             # Check code
+   npm run lint:fix         # Fix The style
+   ```
+
+4. **Test the CLI locally [Your Commands]**
+   ```bash
+   devcli --version        # Check if CLI is working
+   
+   ```
+
+## Pull Request Process
+
+1. **Update your fork**
+   ```bash
+   git remote add upstream https://github.com/manishraj27/mern-project-cli.git
+   git fetch upstream
+   git merge upstream/main
+   ```
+
+2. **Create your PR**
+   - Ensure your PR description clearly describes the problem and solution
+   - Include the relevant issue number if applicable
+   - Update the README.md if any changes affect user-facing functionality
+
+3. **PR Checklist**
+   - [ ] Tests pass
+   - [ ] Code follows style guidelines
+   - [ ] Documentation updated
+   - [ ] Commit messages are clear
+   - [ ] Changes are in a single commit (if possible)
+   - [ ] Branch is up to date with main
+
+## Reporting Bugs
+
+When reporting bugs, please include:
+
+1. Your operating system name and version
+2. Node.js version
+3. Relevant dependencies and their versions
+4. Step by step description of how to reproduce the issue
+5. What you expected would happen
+6. What actually happens
+
+Use the GitHub Issues template for bug reports.
+
+## Feature Requests
+
+We welcome feature requests! Please provide:
+
+1. Clear and detailed description of the feature
+2. Use cases for the feature
+3. Any potential implementation ideas you have
+4. Whether you'd be interested in implementing it yourself
+
+Use the GitHub Issues template for feature requests.
+
+## Style Guidelines
+
+### Code Style
+
+- Use ES6+ features where appropriate
+- Follow existing code formatting
+- Use meaningful variable and function names
+- Add comments for complex logic
+- Keep functions focused and modular
+
+### Commit Messages
+
+Format: `type(scope): description`
+
+Types:
+- feat: New feature
+- fix: Bug fix
+- docs: Documentation changes
+- style: Code style changes
+- refactor: Code refactoring
+- test: Adding tests
+- chore: Maintenance tasks
+
+Example:
+```
+feat(cli): add support for custom MongoDB port configuration
 ```
 
-Then update your feature branch from your local copy of main, and push it!
+## Community
 
-```sh
-git checkout 12-add-new-template
-git rebase main
-git push --set-upstream origin 12-add-new-template
-```
+- Join our discussions in GitHub Issues
+- Star the repository if you find it helpful
 
-Finally, go to GitHub and [make a Pull Request](https://help.github.com/articles/creating-a-pull-request) :D
+## Questions?
 
-## Keeping your Pull Request updated
+If you have any questions about contributing, please:
 
-If a maintainer asks you to "rebase" your PR, they're saying that a lot of code has changed, and that you need to update your branch so it's easier to merge.
+1. Check existing GitHub Issues
+2. Create a new Issue if your question hasn't been addressed
+3. Reach out to the maintainers
 
-To learn more about rebasing in Git, there are a lot of [good](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) [resources](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase) but here's the suggested workflow:
+Thank you for contributing to MERN Project Generator CLI! 🚀
 
-```sh
-git checkout 12-add-new-template
-git pull --rebase upstream main
-git push --force-with-lease 12-add-new-template
-```
+---
 
-## Code review
-
-The project maintainer will review your pull request and provide feedback. Please be patient as pull requests are often reviewed in spare time. If you don't get a response in a couple of weeks, feel free to ping the thread.
-
-## Merging a PR (maintainers only)
-
-A PR can only be merged into main by a maintainer if:
-
-- It is passing all checks.
-- It has been approved by at least one maintainer.
-- It has no requested changes.
-- It is up to date with current main.
-
-## Shipping a release (maintainers only)
-
-Maintainers need to do the following to push out a release:
-
-- Make sure all pull requests are in
-- Update package.json version
-- Create a tag for the version; for example `v1.0.3`
-- Push the tag to the repository
-- Publish to npm: `npm publish`
-
-Thank you for your contributions!
+## License
+By contributing to MERN Project Generator CLI, you agree that your contributions will be licensed under the MIT License.
