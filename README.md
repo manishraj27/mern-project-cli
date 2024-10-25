@@ -5,8 +5,8 @@
 ### NPM Package Website [mern-project-cli](https://www.npmjs.com/package/mern-project-cli)
 ### Website [https://devcli.vercel.app](https://devcli.vercel.app)
 
-![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
 ![NPM Total Downloads](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
+![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
 [![Node.js Package](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml)
 
 **MERN Project Generator CLI** is a powerful tool designed to simplify the process of setting up a complete, production-ready MERN stack project in seconds.
