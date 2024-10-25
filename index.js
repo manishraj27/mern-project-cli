@@ -9,7 +9,8 @@ import createMERNProjectCommand from "./commands/createMERNProject.js";
 import mongodbConnectCommand from "./commands/mongodbConnect.js";
 import mongooseSchemaCommand from "./commands/mongooseSchema.js";
 import addReduxCommand from "./commands/addRedux.js";
-import createShadcnProjectCommand from "./commands/createShadcnProject.js";
+import createFrontend from "./commands/createFrontend.js";
+
 
 // Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -33,7 +34,7 @@ createMERNProjectCommand(program);
 mongodbConnectCommand(program);
 mongooseSchemaCommand(program);
 addReduxCommand(program);
-createShadcnProjectCommand(program);
+createFrontend(program);
 
 // Parse the arguments and start the CLI
 program.parse(process.argv);

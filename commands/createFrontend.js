@@ -14,7 +14,7 @@ function checkNodeVersion() {
   }
 }
 
-export default function createShadcnProjectCommand(program) {
+export default function createFrontend(program) {
   program
     .command("create-frontend <projectName>")
     .description("Create a new React project with Shadcn UI and Tailwind CSS")
