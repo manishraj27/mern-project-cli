@@ -82,8 +82,6 @@ devcli create <your_project_name>
 
 ##### 1. **📁 Creates Project Structure**:
 
-##### 1. **📁 Creates Project Structure**:
-
 The generated project follows the MVC (Model-View-Controller) pattern, a battle-tested architecture that separates your application into three main components:
 
 ```
@@ -229,14 +227,16 @@ devcli mongodb-connect --project custom_name
 
 ```javascript
 // db/connection.js
-require("dotenv").config();
-const mongoose = require("mongoose");
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-const dburl = process.env.DB_URL || "mongodb://localhost:27017/your_db_name";
-mongoose
-  .connect(dburl)
-  .then(() => console.log("Connected to DB Successfully"))
-  .catch((err) => console.log(err.message));
+const DB_NAME = process.env.DB_NAME;
+const dburl = process.env.DB_URL || `mongodb://localhost:27017/${DB_NAME || 'test_db'}`;
+mongoose.connect(dburl).then(() => {
+    console.log("Connected to DB Successfully");
+}).catch((err) => {
+    console.log(err.message);
+});
 ```
 
 ### 3. Generate Mongoose Schema
@@ -283,8 +283,6 @@ export default User;
 The `mongoose-schema` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the `models/` folder.
 
 The `mongoose-schema` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the `models/` folder.
-
-### 4. Add Redux
 
 ### 4. Add Redux
 
