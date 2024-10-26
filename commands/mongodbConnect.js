@@ -21,7 +21,7 @@ export default function mongodbConnectCommand(program) {
       }
 
       // Convert project name to database name format (lowercase, underscores)
-      const dbName = process.env.DB_NAME || projectName.toLowerCase().replace(/-/g, '_');
+      const dbName = projectName.toLowerCase().replace(/-/g, '_');
 
       // Set paths based on current location
       const dbDir = isInBackend
@@ -37,7 +37,8 @@ export default function mongodbConnectCommand(program) {
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const dburl = process.env.DB_URL || "mongodb://localhost:27017/${dbName || 'mydatabase'}";
+// mydatabse is default db used in docker-compose.yml, change if needed.
+const dburl = process.env.DB_URL || "mongodb://localhost:27017/mydatabase";
 mongoose.connect(dburl).then(() => {
     console.log("Connected to DB Successfully");
 }).catch((err) => {

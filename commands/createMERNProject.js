@@ -135,23 +135,24 @@ Create a \`.env\` file based on \`.env.example\`.`
           )
         );
 
-        fs.writeFileSync(path.join(backendDir, 'Dockerfile'),
-          `FROM node:20-alpine
+        // BACKEND DOCKERFILE
+        // fs.writeFileSync(path.join(backendDir, 'Dockerfile'),
+        //   `FROM node:20-alpine
 
-WORKDIR /app
+        // WORKDIR /app
 
-COPY package* .
+        // COPY package* .
 
-RUN npm install
+        // RUN npm install
 
-COPY . .
+        // COPY . .
 
-EXPOSE 5000
+        // EXPOSE 5000
 
-CMD ['npm', "run","dev"]`
-        )
-        console.log("✨ Dockerfile created in /frontend")
-        console.log("✅ Backend files created successfully.");
+        // CMD ['npm', "run","dev"]`
+        // )
+        // console.log("✨ Dockerfile created in /frontend")
+        console.log('✅ Backend files created successfully.');
       } catch (error) {
         console.error(`❌ Failed to create backend files: ${error.message}`);
         process.exit(1);
@@ -200,29 +201,30 @@ REACT_APP_API_URL=http://localhost:5000/api`
         );
         console.log('✅ Frontend .env.example file created.');
 
-        fs.writeFileSync(path.join(frontendDir, "Dockerfile"),
-          `# Use the official Node.js image
-FROM node:20-alpine
+        // FRONTEND DOCKERFILE
+        //         fs.writeFileSync(path.join(frontendDir, "Dockerfile"),
+        //           `# Use the official Node.js image
+        // FROM node:20-alpine
 
-# Set the working directory
-WORKDIR /app
+        // # Set the working directory
+        // WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+        // # Copy package.json and package-lock.json
+        // COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+        // # Install dependencies
+        // RUN npm install
 
-# Copy the rest of the application files
-COPY . .
+        // # Copy the rest of the application files
+        // COPY . .
 
-# Expose the port
-EXPOSE 3000
+        // # Expose the port
+        // EXPOSE 3000
 
-# Start the application in development mode
-CMD ["npm", "start"]`
-        )
-        console.log("✨ Dockerfile created in /frontend")
+        // # Start the application in development mode
+        // CMD ["npm", "start"]`
+        //         )
+        console.log('✨ Dockerfile created in /frontend');
       } catch (error) {
         console.error(
           `❌ Failed to create frontend .env.example file: ${error.message}`
@@ -231,49 +233,49 @@ CMD ["npm", "start"]`
       }
 
       // Create docker-compose.yml in the root directory
-      try {
-        fs.writeFileSync(
-          path.join(rootDir, "docker-compose.yml"),
-          `# version: "3.8"
+      //       try {
+      //         fs.writeFileSync(
+      //           path.join(rootDir, "docker-compose.yml"),
+      //           `# version: "3.8"
 
-services:
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/app
-    environment:
-      DB_URL: mongodb://mongo:27017/mydatabase # you can change db name here to your liking
-      # this doesnt work since for that we need .env on same level
-      # DB_URL: mongodb://mongo:27017/${DB_NAME}
+      // services:
+      //   backend:
+      //     build: ./backend
+      //     ports:
+      //       - "5000:5000"
+      //     volumes:
+      //       - ./backend:/app
+      //     environment:
+      //       DB_URL: mongodb://mongo:27017/mydatabase # you can change db name here to your liking
+      //       # this doesnt work since for that we need .env on same level
+      //       # DB_URL: mongodb://mongo:27017/${DB_NAME}
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    environment:
-      REACT_APP_API_URL: http://localhost:5000/api
-    depends_on:
-      - backend # Ensure the backend is started before the frontend
+      //   frontend:
+      //     build: ./frontend
+      //     ports:
+      //       - "3000:3000"
+      //     volumes:
+      //       - ./frontend:/app
+      //     environment:
+      //       REACT_APP_API_URL: http://localhost:5000/api
+      //     depends_on:
+      //       - backend # Ensure the backend is started before the frontend
 
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+      //   mongo:
+      //     image: mongo:latest
+      //     ports:
+      //       - "27017:27017"
+      //     volumes:
+      //       - mongo_data:/data/db
 
-volumes:
-  mongo_data:`
-        );
-        console.log("✨ docker-compose.yml created successfully.");
-      } catch (error) {
-        console.error(`❌ Failed to create docker-compose.yml: ${error.message}`);
-        process.exit(1);
-      }
+      // volumes:
+      //   mongo_data:`
+      //         );
+      //         console.log("✨ docker-compose.yml created successfully.");
+      //       } catch (error) {
+      //         console.error(`❌ Failed to create docker-compose.yml: ${error.message}`);
+      //         process.exit(1);
+      //       }
 
       // Final success message
       console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
@@ -285,8 +287,8 @@ volumes:
 ${chalk.magenta.bold('Backend:')}
   ${chalk.blue('cd backend')}
   ${chalk.yellow('npm start')} ${chalk.cyan('or')} ${chalk.yellow(
-          'npm run dev [nodemon]'
-        )}
+    'npm run dev [nodemon]'
+  )}
 
 ${chalk.magenta.bold('Frontend:')}
   ${chalk.blue('cd frontend')}
