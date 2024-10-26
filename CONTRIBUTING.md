@@ -3,6 +3,7 @@
 Thank you for your interest in contributing to MERN Project Generator CLI! We're excited to welcome contributors who want to help improve this tool for the developer community. This document provides guidelines and instructions for contributing.
 
 ## 📝 Table of Contents
+
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
 - [Development Process](#development-process)
@@ -26,15 +27,20 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 1. Fork the repository
 2. Clone your fork:
+
 ```bash
 git clone https://github.com/your-username/mern-project-cli.git
 cd mern-project-cli
 ```
+
 3. Install dependencies:
+
 ```bash
 npm install
 ```
+
 4. Create a new branch for your feature/fix:
+
 ```bash
 git checkout -b feature/your-feature-name
 ```
@@ -42,16 +48,19 @@ git checkout -b feature/your-feature-name
 ## Development Process
 
 1. **Set up your development environment**
+
    - Ensure you have Node.js (v14 or higher) installed
    - Install all dependencies using `npm install`
    - Link the package locally using `npm link`
 
 2. **Make your changes**
+
    - Write clear, concise commit messages
    - Add tests for new features
    - Update documentation as needed
 
 3. **Test your changes**
+
    ```bash
    npm test                 # Run tests
    npm run lint             # Check code
@@ -59,14 +68,16 @@ git checkout -b feature/your-feature-name
    ```
 
 4. **Test the CLI locally [Your Commands]**
+
    ```bash
    devcli --version        # Check if CLI is working
-   
+
    ```
 
 ## Pull Request Process
 
 1. **Update your fork**
+
    ```bash
    git remote add upstream https://github.com/manishraj27/mern-project-cli.git
    git fetch upstream
@@ -74,6 +85,7 @@ git checkout -b feature/your-feature-name
    ```
 
 2. **Create your PR**
+
    - Ensure your PR description clearly describes the problem and solution
    - Include the relevant issue number if applicable
    - Update the README.md if any changes affect user-facing functionality
@@ -125,6 +137,7 @@ Use the GitHub Issues template for feature requests.
 Format: `type(scope): description`
 
 Types:
+
 - feat: New feature
 - fix: Bug fix
 - docs: Documentation changes
@@ -134,6 +147,7 @@ Types:
 - chore: Maintenance tasks
 
 Example:
+
 ```
 feat(cli): add support for custom MongoDB port configuration
 ```
@@ -156,4 +170,5 @@ Thank you for contributing to MERN Project Generator CLI! 🚀
 ---
 
 ## License
+
 By contributing to MERN Project Generator CLI, you agree that your contributions will be licensed under the MIT License.
