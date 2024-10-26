@@ -10,6 +10,7 @@ import mongodbConnectCommand from "./commands/mongodbConnect.js";
 import mongooseSchemaCommand from "./commands/mongooseSchema.js";
 import addReduxCommand from "./commands/addRedux.js";
 import createShadcnProjectCommand from "./commands/createShadcnProject.js";
+import createNextJsProjectCommand from "./commands/createNextJs.js";
 
 // Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +35,7 @@ mongodbConnectCommand(program);
 mongooseSchemaCommand(program);
 addReduxCommand(program);
 createShadcnProjectCommand(program);
+createNextJsProjectCommand(program);
 
 // Parse the arguments and start the CLI
 program.parse(process.argv);
