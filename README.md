@@ -37,6 +37,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [3. devcli mongoose-schema](#3-mongoose-schema)
   - [4. devcli add-redux](#4-add-redux)
   - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
+  - [6. devcli init-dockerfiles](#6-initialize-docker-files)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -380,6 +381,75 @@ your-project/
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
 
+
+### 6. Initialize Docker Files
+
+Generate Dockerfiles for both backend and frontend, along with a docker-compose.yml file for your MERN stack project.
+
+```bash
+devcli init-dockerfiles
+```
+
+#### What This Command Does:
+
+1. **Creates Backend Dockerfile**:
+   - Uses Node.js 20 Alpine image
+   - Sets up working directory
+   - Installs dependencies
+   - Configures for development mode
+   - Exposes port 5000
+
+2. **Creates Frontend Dockerfile**:
+   - Uses Node.js 20 Alpine image
+   - Sets up working directory
+   - Installs dependencies
+   - Exposes port 3000
+   - Configures for development mode
+
+3. **Generates docker-compose.yml**:
+   - Configures services for backend, frontend, and MongoDB
+   - Sets up proper networking between services
+   - Configures volumes for development
+   - Sets environment variables
+   - Establishes service dependencies
+
+#### Requirements:
+
+- Project must have `backend` and `frontend` directories in root
+- Docker must be installed on your system
+
+#### Generated Files:
+
+```
+your-project/
+├── backend/
+│   ├── Dockerfile
+│   └── .dockerignore
+├── frontend/
+│   ├── Dockerfile
+│   └── .dockerignore
+└── docker-compose.yml
+```
+
+#### Usage:
+
+```bash
+# Navigate to your project root
+cd your-project
+
+# Generate Docker files
+devcli init-dockerfiles
+
+# Start the containerized application
+docker-compose up
+```
+
+This will start your application with:
+- Backend running on `http://localhost:5000`
+- Frontend running on `http://localhost:3000`
+- MongoDB running on port `27017`
+
+
 ## 📖 Complete User Journey Example
 
 Let's create a blog application from scratch:
@@ -480,6 +550,13 @@ devcli add-redux --slice <name> --actions="action1,action2" --state="field1:type
 # Example: devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
 ```
 
+#### Docker CLI Commands
+
+```bash
+# Docker Configuration
+devcli init-dockerfiles            # Generate Dockerfiles and docker-compose.yml
+```
+
 ### Development Commands
 
 #### Backend Development
@@ -497,7 +574,14 @@ npm start                  # Start without auto-reload (production)
 cd frontend                # Navigate to frontend directory
 npm install                # Install dependencies
 npm start                  # Start development server
+```
 
+#### Docker Development
+
+```bash
+docker-compose up          # Start all services (backend, frontend, mongodb)
+docker-compose down        # Stop all services
+docker-compose up --build  # Rebuild and start all services
 ```
 
 <!--
