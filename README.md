@@ -12,15 +12,22 @@
 ![NPM Weekly Downloads](https://img.shields.io/npm/dw/mern-project-cli?color=blue&label=Weekly%20Downloads&style=for-the-badge)
 [![Node.js Package](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/manishraj27/mern-project-cli/actions/workflows/npm-publish.yml)
 
-**MERN Project Generator CLI** is a powerful tool designed to simplify the process of setting up a complete, production-ready MERN stack project in seconds.
+## 📂 What is MERN? 
 
-This tool eliminates the need for manual configurations, boilerplate code copying, and repetitive tasks, allowing developers to start building their apps right away with best practices in place. Perfect for both beginners and experienced developers, it saves time and ensures a solid project foundation.
+The MERN stack is a popular set of JavaScript technologies for building full-stack web applications:
+
+- MongoDB - Database
+- Express.js - Backend framework
+- React - Frontend library
+- Node.js - Server runtime
+
+**MERN Project Generator CLI** is a powerful tool designed to automate creating, configuring, and organizing the project structure, so you can start coding without manual setup! Perfect for both beginners and experienced developers, it saves time and ensures a solid project foundation.
 
 ## ✨ Features
 
 - **One Command Setup**: Generate both frontend and backend with a single command
 - **Industry-Standard Structure**: Pre-configured folder structure following best practices
-- **Create frontend with shadcn and vite**, a new React project with either Shadcn UI + Tailwind CSS or just Vite + Tailwind CSS using a single command.
+- **Front-End Options**: Choose your React project with either Vite + Tailwind or Shadcn UI + Tailwind using a single command.
 - **Instant MongoDB Integration**: Connect to MongoDB with zero configuration
 - **Generate Mongoose Schema**: Generate Mongoose Schema with just one command
 - **Development Ready**: Hot-reloading enabled for both frontend and backend
@@ -47,8 +54,8 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
 
 Before you begin, ensure your system meets these requirements:
 
-- **Node.js**: Version 14.x or higher
-- **npm**: Version 6.x or higher
+- **Node.js (v14 or later)**: Check your current version by running ``node -v``.
+- **npm (Version 6.x or higher)**: Run ``npm -v``.
 - **MongoDB**: Local or remote installation
 
 ## 📦 Installation
@@ -65,7 +72,7 @@ To check installation version:
 devcli --version
 ```
 
-## 🛠️ Commands
+## 🛠️ Commands Overview
 
 ### 1. Create MERN Project
 
@@ -75,7 +82,7 @@ devcli create <your_project_name>
 
 #### What This Command Does:
 
-##### 1. **📁 Creates Project Structure**:
+##### a. **📁 Creates Project Structure**:
 
 The generated project follows the MVC (Model-View-Controller) pattern, a battle-tested architecture that separates your application into three main components:
 
@@ -105,7 +112,7 @@ your-project-name/
     └── package.json         # Frontend dependencies
 ```
 
-##### 2. **Installs Dependencies**:
+##### b. **Installs Dependencies**:
 
 - Backend: Express, Mongoose, CORS, dotenv, nodemon.
 - Frontend: React, React Router, Axios, Other Create React App dependencies.
@@ -153,13 +160,13 @@ devcli mongodb-connect --project custom-name
 
 #### What This Command Does:
 
-##### 1. **Creates Database Connection**:
+##### a. **Creates Database Connection**:
 
 - Generates `connection.js` in the `db` folder
 - Sets up Mongoose connection with error handling
 - Configures connection string based on environment variables
 
-##### 2. **Updates Server Configuration**:
+##### b. **Updates Server Configuration**:
 
 - Adds database connection import to `server.js`
 - Sets up connection status logging
@@ -380,7 +387,7 @@ your-project/
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
 
-## 📖 Complete User Journey Example
+## 📖 Complete User Guide
 
 Let's create a blog application from scratch:
 
