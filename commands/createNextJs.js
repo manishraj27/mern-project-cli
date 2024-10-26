@@ -2,112 +2,104 @@ import fs from "fs-extra";
 import path from "path";
 import chalk from "chalk";
 import { execSync } from "child_process";
+import { checkNodeVersion } from "../utils/checkNodeVersion.js";
+import { taskHandler } from "../utils/taskHandler.js";
 
-function checkNodeVersion() {
-  const currentVersion = process.versions.node;
-  const majorVersion = currentVersion.split(".")[0];
-  if (majorVersion < 14) {
-    console.error(
-      `Your Node.js version (${currentVersion}) is not supported. Please use Node.js 14.x or higher.`
-    );
-    process.exit(1);
-  }
-}
+export default function createNextJsProject(projectName) {
 
-export default function createNextJsProject(program) {
-  program
-    .command("next <projectName>")
-    .description("Create a new next js project")
-    .action((projectName) => {
-      checkNodeVersion();
+      checkNodeVersion()
+      
+      let rootDir = ''
+      if(projectName === '.')
+        rootDir = process.cwd()
+      else
+        rootDir = path.join(process.cwd(), projectName);
 
-      const rootDir = path.join(process.cwd(), projectName);
+      // Initializing Next JS Project
+      taskHandler(
+        () =>
+          execSync(`npx create-next-app@latest ${projectName}`, {
+            stdio: "inherit",
+          }),
+        "🔧 Initiating Next JS project...",
+        "✅ Initialized Next JS project successfully!",
+        "❌ Error while initializing a Next JS project"
+      );
 
-      // Create root project directory
-      //   try {
-      //     fs.mkdirSync(rootDir, { recursive: true });
-      //     console.log("✅ Root directory created successfully.");
-      //   } catch (error) {
-      //     console.error(`❌ Failed to create root directory: ${error.message}`);
-      //     process.exit(1);
-      //   }
-
-      // Initializing root project
-      try {
-        execSync(`npx create-next-app@latest ${projectName}`, {
-          stdio: "inherit",
-        });
-        console.log("✅ Initialized a NextJS project successfully!");
-      } catch (error) {
-        console.log(error);
-        process.exit(1);
-      }
-
-      // Installing other dependencies and dev dependencies
-      try {
-        console.log("🔧 Installing other dependencies...");
-        execSync(
-          "npm i --force axios bcryptjs jsonwebtoken chalk react-hook-form react-icons",
-          { stdio: "inherit", cwd: rootDir }
-        );
-        // execSync('npm install -D ', { stdio: "inherit", cwd: rootDir })
-        console.log("✅ Installed successfully!");
-      } catch (error) {
-        console.log(error);
-        process.exit(1);
-      }
-
-      const dirsToCreate = [
-        "actions",
-        "components",
-        "forms",
-        "hooks",
-        "lib",
-        "types",
-        "utils",
-        "models",
-      ];
-
-      const appDirsToCreate = ["(main)", "(auth)", "api"];
+      // Installing Other dependencies
+      taskHandler(
+        () =>
+          execSync(
+            "npm i --force axios bcryptjs jsonwebtoken chalk react-hook-form react-icons",
+            { stdio: "inherit", cwd: rootDir }
+          ),
+        "🔧 Installing other dependencies...",
+        "✅ Other dependencies installed successfully!",
+        "❌ Error while installing other dependencies"
+      );
 
       // Creating directories
-      try {
-        dirsToCreate.forEach((dir) => {
-          const appDir = path.join(rootDir, "src", dir);
-          fs.mkdirSync(appDir, { recursive: true });
-        });
+      taskHandler(
+        () => {
+          const dirsToCreate = [
+            "actions",
+            "components",
+            "forms",
+            "hooks",
+            "lib",
+            "types",
+            "utils",
+            "models",
+          ];
 
-        let isAppDir = fs.existsSync(path.join(rootDir, "src", "app"));
-        let appPath = "";
-        if (isAppDir) appPath = path.join(rootDir, "src", "app");
-        else appPath = path.join(rootDir, "src");
+          const appDirsToCreate = ["(main)", "(auth)", "api"];
 
-        appDirsToCreate.forEach((dir) => {
-          const appDir = path.join(appPath, dir);
-          fs.mkdirSync(appDir, { recursive: true });
-        });
-        console.log("✅ Directories created successfully!");
-      } catch (error) {
-        console.log(error);
-        process.exit(1);
-      }
+          dirsToCreate.forEach((dir) => {
+            const appDir = path.join(rootDir, "src", dir);
+            fs.mkdirSync(appDir, { recursive: true });
+          });
 
-      try {
-        fs.writeFileSync(path.join(rootDir, 'src', 'middleware.ts'), '//Your middleware logic here')
-      } catch (error) {
-        console.log(error)
-        process.exit(1)
-      }
+          let isAppDir = fs.existsSync(path.join(rootDir, "src", "app"));
+          let appPath = "";
+          if (isAppDir) appPath = path.join(rootDir, "src", "app");
+          else appPath = path.join(rootDir, "src");
 
-      try {
-        console.log("Initializing Git repo")
-        execSync('git init', { cwd: rootDir })
-        console.log("Initialized Git repo")
-      } catch (error) {
-        console.log(error)
-        process.exit(1)
-      }
+          appDirsToCreate.forEach((dir) => {
+            const appDir = path.join(appPath, dir);
+            fs.mkdirSync(appDir, { recursive: true });
+          });
+        },
+        "🔧 Creating directories...",
+        "✅ Error while creating directories",
+        "❌ Directories created successfully!"
+      );
 
-      console.log("Done!")
-    });
+      // Creating middleware file
+      taskHandler(
+        () => {
+          let fileName = 'middleware.js'
+          const isTSProject = fs.existsSync(path.join(rootDir, "tsconfig.json"))
+          if(isTSProject) fileName = 'middleware.ts'
+          fs.writeFileSync(
+            path.join(rootDir, "src", fileName),
+            "//Your middleware logic here"
+          )
+        },
+        "🔧 Creating Middleware file...",
+        "✅ Middleware created successfully!",
+        "❌ Error while creating middleware file"
+      );
+
+      taskHandler(
+        () => execSync("git init", { cwd: rootDir }),
+        "🔧 Initiating Git repo...",
+        "✅ Initialized Git repo successfully!",
+        "❌ Error while initializing a Git repo"
+      );
+
+      
+      console.log("-------------------------------------------------------------------------")
+      console.log(chalk.greenBright("Next JS project initialized with all basic configurations successfully!"));
+      console.log("-------------------------------------------------------------------------")
+
 }
