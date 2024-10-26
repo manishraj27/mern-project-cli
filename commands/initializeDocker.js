@@ -4,7 +4,7 @@ import chalk from 'chalk';
 
 export default function initializeDockerCommand(program) {
   program
-    .command('create-dockerfiles')
+    .command('init-dockerfiles')
     .description(
       'Generate Dockerfiles for backend and frontend, and docker-compose.yml in root'
     )
