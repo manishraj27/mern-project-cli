@@ -46,6 +46,8 @@ EXPOSE 5000
 
 CMD ["npm", "run", "dev"]
 `;
+      const dockerIgnore = `node_modules
+dist`;
 
       // Dockerfile for frontend
       const frontendDockerfileContent = `# Use the official Node.js image
@@ -109,10 +111,12 @@ volumes:
 
 `;
 
-      // Create backend Dockerfile
+      // Create backend Dockerfile & .dockerignore
       const backendDockerfilePath = path.join(backendDir, 'Dockerfile');
+      const backendDockerIgorefilePath = path.join(backendDir, '.dockerignore');
       try {
         fs.writeFileSync(backendDockerfilePath, backendDockerfileContent);
+        fs.writeFileSync(backendDockerIgorefilePath, dockerIgnore);
         console.log(chalk.green('✅ Backend Dockerfile created successfully.'));
       } catch (error) {
         console.error(
@@ -121,10 +125,15 @@ volumes:
         return;
       }
 
-      // Create frontend Dockerfile
+      // Create frontend Dockerfile & .dockerignore
       const frontendDockerfilePath = path.join(frontendDir, 'Dockerfile');
+      const frontendDockerIgorefilePath = path.join(
+        frontendDir,
+        '.dockerignore'
+      );
       try {
         fs.writeFileSync(frontendDockerfilePath, frontendDockerfileContent);
+        fs.writeFileSync(frontendDockerIgorefilePath, dockerIgnore);
         console.log(
           chalk.green('✅ Frontend Dockerfile created successfully.')
         );

@@ -617,7 +617,6 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 
 1. **Code Generation**
    More Code-Snippets
-   More Code-Snippets
 
 ## 🤝 Contribute to the Project
 
