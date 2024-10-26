@@ -11,25 +11,22 @@ export default function initializeDockerCommand(program) {
     .action(() => {
       const currentDir = process.cwd();
 
-      // Check if we are in the root directory
-      const isBackend = path.basename(currentDir) === 'backend';
-      const isFrontend = path.basename(currentDir) === 'frontend';
+      // Check if backend and frontend directories exist
+      const backendDir = path.join(currentDir, 'backend');
+      const frontendDir = path.join(currentDir, 'frontend');
 
-      if (!isBackend || !isFrontend) {
-        console.error(
-          chalk.red('❌ You must be in the root directory of the project.')
-        );
+      const hasBackendDir = fs.existsSync(backendDir);
+      const hasFrontendDir = fs.existsSync(frontendDir);
+
+      if (!hasBackendDir || !hasFrontendDir) {
+        console.error(chalk.red('❌ Required directory structure not found.'));
         console.log(
           chalk.yellow(
-            '📁 Please navigate to the project root directory and then re-run the command.'
+            '📁 Please ensure both "backend" and "frontend" directories exist in the current directory.'
           )
         );
         return;
       }
-
-      const backendDir = path.join(currentDir, 'backend');
-      const frontendDir = path.join(currentDir, 'frontend');
-
       // Dockerfile for backend
       const backendDockerfileContent = `# Use the official Node.js image
 FROM node:20-alpine
