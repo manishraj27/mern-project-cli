@@ -11,7 +11,7 @@ export default function mongodbConnectCommand(program) {
       // Detect if we're in the backend folder or project root
       const currentDir = process.cwd();
       const isInBackend = path.basename(currentDir) === 'backend';
-      
+
       // If in backend, try to get project name from parent directory
       let projectName = options.project;
       if (!projectName && isInBackend) {
@@ -22,12 +22,12 @@ export default function mongodbConnectCommand(program) {
 
       // Convert project name to database name format (lowercase, underscores)
       const dbName = projectName.toLowerCase().replace(/-/g, '_');
-      
+
       // Set paths based on current location
-      const dbDir = isInBackend 
+      const dbDir = isInBackend
         ? path.join(currentDir, 'db')
         : path.join(currentDir, 'backend', 'db');
-      
+
       const serverFilePath = isInBackend
         ? path.join(currentDir, 'server.js')
         : path.join(currentDir, 'backend', 'server.js');
@@ -50,7 +50,9 @@ mongoose.connect(dburl).then(() => {
           fs.mkdirSync(dbDir, { recursive: true });
           console.log(chalk.green('✅ Created db directory'));
         } catch (error) {
-          console.error(chalk.red(`❌ Failed to create db directory: ${error.message}`));
+          console.error(
+            chalk.red(`❌ Failed to create db directory: ${error.message}`)
+          );
           return;
         }
       }
@@ -58,15 +60,25 @@ mongoose.connect(dburl).then(() => {
       // Write the connection code to connection.js in db directory
       try {
         fs.writeFileSync(path.join(dbDir, 'connection.js'), dbConnectionCode);
-        console.log(chalk.green('✅ MongoDB connection code written to db/connection.js'));
+        console.log(
+          chalk.green('✅ MongoDB connection code written to db/connection.js')
+        );
       } catch (error) {
-        console.error(chalk.red(`❌ Failed to write MongoDB connection code: ${error.message}`));
+        console.error(
+          chalk.red(
+            `❌ Failed to write MongoDB connection code: ${error.message}`
+          )
+        );
         return;
       }
 
       // Verify server.js exists
       if (!fs.existsSync(serverFilePath)) {
-        console.error(chalk.red('❌ server.js not found. Make sure you are in the correct directory.'));
+        console.error(
+          chalk.red(
+            '❌ server.js not found. Make sure you are in the correct directory.'
+          )
+        );
         return;
       }
 
@@ -74,7 +86,7 @@ mongoose.connect(dburl).then(() => {
       try {
         // Read existing content of server.js
         const serverContent = fs.readFileSync(serverFilePath, 'utf8');
-        
+
         // Check if the connection is already required
         if (!serverContent.includes("require('./db/connection')")) {
           // Add the require statement after the other requires
@@ -82,20 +94,32 @@ mongoose.connect(dburl).then(() => {
             "require('dotenv').config();",
             "require('dotenv').config();\nconst dbconnection = require('./db/connection');"
           );
-          
+
           fs.writeFileSync(serverFilePath, updatedContent);
-          console.log(chalk.green('✅ MongoDB connection import added to server.js'));
+          console.log(
+            chalk.green('✅ MongoDB connection import added to server.js')
+          );
         } else {
-          console.log(chalk.yellow('⚠️ MongoDB connection already imported in server.js'));
+          console.log(
+            chalk.yellow('⚠️ MongoDB connection already imported in server.js')
+          );
         }
       } catch (error) {
-        console.error(chalk.red(`❌ Failed to update server.js: ${error.message}`));
+        console.error(
+          chalk.red(`❌ Failed to update server.js: ${error.message}`)
+        );
       }
 
       // Final success message with next steps
       console.log(chalk.cyan('\n📝 Next steps:'));
       console.log(chalk.white(`1. Your database name is set to: ${dbName}_db`));
-      console.log(chalk.white('2. Add DB_URL to your .env file if you want to use a custom MongoDB URL'));
-      console.log(chalk.white('3. Make sure MongoDB is running if using local database'));
+      console.log(
+        chalk.white(
+          '2. Add DB_URL to your .env file if you want to use a custom MongoDB URL'
+        )
+      );
+      console.log(
+        chalk.white('3. Make sure MongoDB is running if using local database')
+      );
     });
 }
