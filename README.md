@@ -626,7 +626,7 @@ cd frontend && npm install
 <!--
 ### Why Choose MERN Project Generator CLI?
 
-#### 🎯 Perfect For:
+#### 🎯 Perfect For
 - **Startups**: Launch MVPs faster with a solid foundation
 - **Freelancers**: Start client projects instantly
 - **Teams**: Maintain consistent project structure across developers
