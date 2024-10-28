@@ -672,7 +672,7 @@ If you find this tool helpful, please consider:
 ---
 
 <div align="center">
-  <h3>🌟 Made with ❤️ by Manish Raj</h3>
+  <h3>🌟 Build with ❤️ by Manish Raj</h3>
   <p>
     <a href="https://manishraj.me/">Portfolio</a> •
     <a href="https://github.com/manishraj27">GitHub</a> •
