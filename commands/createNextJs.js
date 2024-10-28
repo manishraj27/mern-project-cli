@@ -5,6 +5,29 @@ import { execSync } from "child_process";
 import { checkNodeVersion } from "../utils/checkNodeVersion.js";
 import { taskHandler } from "../utils/taskHandler.js";
 
+const middlewareContent = `
+"use server"
+
+import { NextRequest, NextResponse } from "next/server";
+
+export async function middleware(req) {
+    try {
+
+        const response = NextResponse.next();
+        return response;
+
+    } catch (err: any) {
+        return NextResponse.next({ "message": "Server Error", "error": err?.message }, { status: 500 })
+    }
+}
+
+export const config = {
+    matcher: [
+        '/'
+    ]
+}
+`
+
 export default function createNextJsProject(projectName) {
 
       checkNodeVersion()
@@ -82,7 +105,7 @@ export default function createNextJsProject(projectName) {
           if(isTSProject) fileName = 'middleware.ts'
           fs.writeFileSync(
             path.join(rootDir, "src", fileName),
-            "//Your middleware logic here"
+            middlewareContent
           )
         },
         "🔧 Creating Middleware file...",

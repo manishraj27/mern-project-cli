@@ -15,6 +15,7 @@ function checkNodeVersion() {
   }
 }
 
+
 export default function createMERNProjectCommand(program) {
   program
     .command("create <projectName>")
