@@ -132,7 +132,10 @@ cd your-project-name/frontend
 ```
 npm start               # Start React App
 ```
-
+Option:
+```bash 
+devcli create my_project --next
+```
 ### 2. Connect MongoDB
 
 - Create database as your_project_name_db
