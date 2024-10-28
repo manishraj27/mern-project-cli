@@ -584,69 +584,6 @@ docker-compose down        # Stop all services
 docker-compose up --build  # Rebuild and start all services
 ```
 
-<!--
-### CLI Options
-
-#### Backend Options
-```bash
-# MongoDB Connect Options
--p, --project <name>      # Specify custom database name
-
-# Mongoose Schema Options
-<schema-name>             # Name of the schema to generate
-<fieldName:fieldType>     # Field definitions (e.g., name:String)
-```
-
-#### Frontend Options
-```bash
-# Redux Options
---init                    # Initialize Redux setup
---slice <name>           # Create a new Redux slice
---actions <actions>      # Comma-separated list of actions (e.g., "login,logout")
---state <state>          # Initial state fields (e.g., "username:string,isLoggedIn:boolean")
-``` -->
-<!--
-### Common Project Commands
-```bash
-# Start both frontend and backend (from project root)
-cd backend && npm run dev  # Terminal 1
-cd frontend && npm start  # Terminal 2
-
-# Install all dependencies (from project root)
-cd backend && npm install
-cd frontend && npm install
-``` -->
-
-<!--
-### Why Choose MERN Project Generator CLI?
-
-#### 🎯 Perfect For
-- **Startups**: Launch MVPs faster with a solid foundation
-- **Freelancers**: Start client projects instantly
-- **Teams**: Maintain consistent project structure across developers
-- **Learning**: Focus on coding instead of setup when learning MERN stack
-- **Hackathons**: Get your project up and running in minutes
-
-#### 💪 Built for Real Development:
-- **Production-Ready**: Follows industry best practices out of the box
-- **Scalable Structure**: Organized for growth from day one
-- **Developer Friendly**: Hot-reloading, environment configs, and Git ready
-- **Customizable**: Easy to modify and extend based on your needs
-- **Time-Saving**: Eliminate repetitive setup tasks
-
-#### 🛠️ What You Get:
-- **Complete MERN Setup**: MongoDB, Express, React, and Node.js configured and ready
-- **Modern Tooling**: Latest versions of all dependencies
-- **Development Mode**: Hot-reloading for both frontend and backend
-- **API Ready**: Basic API structure with examples
-- **Database Connected**: MongoDB configuration with just one command
-- **Generate Schema**: Generate Mongoose Schema with one command
-- **Environment Ready**: Pre-configured environment files
-- **Version Control**: Git initialized with proper `.gitignore` files
-
-Skip the boring setup and jump straight into building your next big idea! Whether you're creating a quick prototype, starting a serious project, or learning the MERN stack, this CLI tool gives you the perfect foundation to build upon.
- -->
-
 ## 🔮 Future Enhancements
 
 1. **Code Generation**
