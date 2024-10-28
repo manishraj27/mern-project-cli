@@ -1,8 +1,11 @@
 <img src="https://github.com/user-attachments/assets/1226438f-19e0-46e4-beff-5483e429ee69" width=200>
 
 # 🚀 MERN Project Generator CLI
+
 > Create production-ready MERN stack projects in seconds!
+
 ### NPM Package Website [mern-project-cli](https://www.npmjs.com/package/mern-project-cli)
+
 ### Website [https://devcli.vercel.app](https://devcli.vercel.app)
 
 ![NPM Total Downloads](https://img.shields.io/npm/dt/mern-project-cli?color=brightgreen&label=Total%20Downloads&style=for-the-badge)
@@ -17,6 +20,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
 
 - **One Command Setup**: Generate both frontend and backend with a single command
 - **Industry-Standard Structure**: Pre-configured folder structure following best practices
+- **Create frontend with shadcn and vite**, a new React project with either Shadcn UI + Tailwind CSS or just Vite + Tailwind CSS using a single command.
 - **Instant MongoDB Integration**: Connect to MongoDB with zero configuration
 - **Generate Mongoose Schema**: Generate Mongoose Schema with just one command
 - **Development Ready**: Hot-reloading enabled for both frontend and backend
@@ -24,6 +28,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
 - **Git Ready**: Initialized Git repository with proper `.gitignore` files
 
 ## 📑 Index
+
 - [Requirements](#-requirements)
 - [Installation](#-installation)
 - [Commands](#%EF%B8%8F-commands)
@@ -31,7 +36,8 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [2. devcli mongodb-connect](#2-connect-mongodb)
   - [3. devcli mongoose-schema](#3-mongoose-schema)
   - [4. devcli add-redux](#4-add-redux)
-  - [5. devcli create-frontend <project_name> --shadcn](#5-create-shadcn-frontend)
+  - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
+  - [6. devcli init-dockerfiles](#6-initialize-docker-files)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -55,6 +61,7 @@ npm install -g mern-project-cli
 ```
 
 To check installation version:
+
 ```bash
 devcli --version
 ```
@@ -69,7 +76,8 @@ devcli create <your_project_name>
 
 #### What This Command Does:
 
-##### 1. **📁 Creates Project Structure**: 
+##### 1. **📁 Creates Project Structure**:
+
 The generated project follows the MVC (Model-View-Controller) pattern, a battle-tested architecture that separates your application into three main components:
 
 ```
@@ -99,23 +107,24 @@ your-project-name/
 ```
 
 ##### 2. **Installs Dependencies**:
-   - Backend: Express, Mongoose, CORS, dotenv, nodemon.
-   - Frontend: React, React Router, Axios, Other Create React App dependencies.
 
-
+- Backend: Express, Mongoose, CORS, dotenv, nodemon.
+- Frontend: React, React Router, Axios, Other Create React App dependencies.
 
 #### After Creation:
 
 ##### **Start Backend Development**:
+
 ```bash
 cd your-project-name/backend
 ```
+
 ```bash
 npm run dev             # Start development server with nodemon
 ```
 
-
 ##### **Start Frontend Development**:
+
 ```bash
 cd your-project-name/frontend
 ```
@@ -125,29 +134,36 @@ npm start               # Start React App
 ```
 
 ### 2. Connect MongoDB
+
 - Create database as your_project_name_db
+
 ```bash
 devcli mongodb-connect
 ```
+
 - Or with custom database name
+
 ```
-devcli mongodb-connect --project custom-name  
+devcli mongodb-connect --project custom-name
 ```
 
 #### Options:
+
 - `-p, --project <name>`: Specify custom database name
 - No options: Uses project folder name as database name
 
 #### What This Command Does:
 
 ##### 1. **Creates Database Connection**:
-   - Generates `connection.js` in the `db` folder
-   - Sets up Mongoose connection with error handling
-   - Configures connection string based on environment variables
+
+- Generates `connection.js` in the `db` folder
+- Sets up Mongoose connection with error handling
+- Configures connection string based on environment variables
 
 ##### 2. **Updates Server Configuration**:
-   - Adds database connection import to `server.js`
-   - Sets up connection status logging
+
+- Adds database connection import to `server.js`
+- Sets up connection status logging
 
 #### Usage Examples:
 
@@ -166,23 +182,30 @@ devcli mongodb-connect --project custom_name
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const dburl = process.env.DB_URL || "mongodb://localhost:27017/your_db_name";
-mongoose.connect(dburl)
-  .then(() => console.log("Connected to DB Successfully"))
+const dburl = process.env.DB_URL || 'mongodb://localhost:27017/your_db_name';
+mongoose
+  .connect(dburl)
+  .then(() => console.log('Connected to DB Successfully'))
   .catch((err) => console.log(err.message));
 ```
 
 ### 3. Generate Mongoose Schema
+
 - Create mongoose schema for your backend.
+
 ```bash
 devcli devcli mongoose-schema <schema-name> <fieldName:fieldType fieldName:fieldType ...>
 
 ```
+
 #### Usage Example
+
 ```bash
 devcli mongoose-schema User name:String email:String password:String
 ```
-This will create a ```User.js``` file with a Mongoose schema inside the ```models/``` directory:
+
+This will create a `User.js` file with a Mongoose schema inside the `models/` directory:
+
 ```javascript
 //models/User.js
 import mongoose from 'mongoose';
@@ -190,65 +213,75 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
 });
 
 const User = mongoose.model('User', UserSchema);
 export default User;
-
 ```
 
 #### Explanation:
-The ```mongoose-schema``` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the ```models/``` folder.
 
-### 4. Add Redux 
+The `mongoose-schema` command takes a model name (User) and field definitions (name:String, email:String, password:String), generating a Mongoose model file in the `models/` folder.
+
+### 4. Add Redux
+
 Set up Redux in your project or add new Redux slices.
 
 #### Initialize Redux
+
 ```bash
 devcli add-redux --init
 ```
+
 ###### What does this command do:
+
 - Sets up Redux store configuration
 - Creates necessary store files and directories
 - Installs required dependencies (@reduxjs/toolkit and react-redux)
 - Creates hooks for easier Redux usage
 
 #### Create Redux Slice
+
 ```bash
 devcli add-redux --slice <sliceName> --actions="action1,action2" --state="field1:type,field2:type"
 ```
 
 Options:
+
 - `--slice`: Name of the slice to create
 - `--actions`: Comma-separated list of actions for the slice
 - `--state`: Initial state fields with types (string, boolean, array)
 
 #### Usage Example:
+
 ```bash
 devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
 ```
 
 This creates:
+
 - A new slice file in `src/store/slices`
 - Boilerplate for specified actions
 - Initial state with typed fields
 - Automatic integration with the Redux store
 
-
 #### Example Generated Redux Slice
+
 When you run the command:
+
 ```bash
 devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
 ```
 
 It generates the following slice in `src/store/slices/userSlice.js`:
+
 ```javascript
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: "",
-  isLoggedIn: false
+  username: '',
+  isLoggedIn: false,
 };
 
 const userSlice = createSlice({
@@ -260,23 +293,30 @@ const userSlice = createSlice({
     },
     logout: (state, action) => {
       // Implement logout logic here
-    }
+    },
   },
 });
 
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
 ```
-### 5. Create Shadcn Frontend
 
-Create a new React project with Shadcn UI and Tailwind CSS pre-configured with just one command.
-It turns your hour of effort to just seconds.
+### 5. Create Frontend Project
+
+Create a new React project with either Shadcn UI + Tailwind CSS or just Vite + Tailwind CSS using a single command.
 
 ```bash
+# Create project with Shadcn UI
 devcli create-frontend <project_name> --shadcn
+
+# Create project with Vite + Tailwind CSS
+devcli create-frontend <project_name> --vite
 ```
 
 #### Features
+
+##### With --shadcn flag:
+
 - Creates a Vite + React project
 - Installs and configures Tailwind CSS
 - Sets up Shadcn UI with New York style and Zinc color scheme
@@ -285,10 +325,36 @@ devcli create-frontend <project_name> --shadcn
 - Sets up path aliases for better imports
 - Includes all necessary configuration files
 
-#### Options
-- `--shadcn`: Required flag to include Shadcn UI setup
+##### With --vite flag:
 
-#### Generated Project Structure
+- Creates a basic Vite + React project
+- Installs and configures Tailwind CSS
+- Sets up minimal project structure
+- Includes starter template with modern styling
+
+#### Options
+
+- `--shadcn`: Include Shadcn UI setup with Tailwind CSS
+- `--vite`: Create basic Vite project with Tailwind CSS only
+
+#### Usage Examples
+
+```bash
+# Create a new React project with Shadcn UI
+devcli create-frontend my-app --shadcn
+
+# Create a new React project with just Vite + Tailwind
+devcli create-frontend my-app --vite
+
+# Navigate to project
+cd my-app
+
+# Start development server
+npm run dev
+```
+
+#### Generated Project Structure with --shadcn
+
 ```
 your-project/
 ├── src/
@@ -305,19 +371,8 @@ your-project/
 └── components.json
 ```
 
-#### Usage Example
-```bash
-# Create a new React project with Shadcn UI
-devcli create-frontend my-app --shadcn
+#### After Creation with --shadcn
 
-# Navigate to project
-cd my-app
-
-# Start development server
-npm run dev
-```
-
-#### After Creation
 - Add more Shadcn components using:
   ```bash
   npx shadcn@latest add <component-name>
@@ -325,6 +380,75 @@ npm run dev
 - Available components can be found at [shadcn/ui components](https://ui.shadcn.com/docs/components)
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
+
+
+### 6. Initialize Docker Files
+
+Generate Dockerfiles for both backend and frontend, along with a docker-compose.yml file for your MERN stack project.
+
+```bash
+devcli init-dockerfiles
+```
+
+#### What This Command Does:
+
+1. **Creates Backend Dockerfile**:
+   - Uses Node.js 20 Alpine image
+   - Sets up working directory
+   - Installs dependencies
+   - Configures for development mode
+   - Exposes port 5000
+
+2. **Creates Frontend Dockerfile**:
+   - Uses Node.js 20 Alpine image
+   - Sets up working directory
+   - Installs dependencies
+   - Exposes port 3000
+   - Configures for development mode
+
+3. **Generates docker-compose.yml**:
+   - Configures services for backend, frontend, and MongoDB
+   - Sets up proper networking between services
+   - Configures volumes for development
+   - Sets environment variables
+   - Establishes service dependencies
+
+#### Requirements:
+
+- Project must have `backend` and `frontend` directories in root
+- Docker must be installed on your system
+
+#### Generated Files:
+
+```
+your-project/
+├── backend/
+│   ├── Dockerfile
+│   └── .dockerignore
+├── frontend/
+│   ├── Dockerfile
+│   └── .dockerignore
+└── docker-compose.yml
+```
+
+#### Usage:
+
+```bash
+# Navigate to your project root
+cd your-project
+
+# Generate Docker files
+devcli init-dockerfiles
+
+# Start the containerized application
+docker-compose up
+```
+
+This will start your application with:
+- Backend running on `http://localhost:5000`
+- Frontend running on `http://localhost:3000`
+- MongoDB running on port `27017`
+
 
 ## 📖 Complete User Journey Example
 
@@ -369,6 +493,7 @@ devcli add-redux --slice blog --actions="addPost,deletePost,updatePost" --state=
 ## ⚙️ Environment Configuration
 
 ### Backend (.env)
+
 ```env
 # Server Configuration
 PORT=5000
@@ -378,6 +503,7 @@ DB_URI=mongodb://localhost:27017/your_db_name
 ```
 
 ### Frontend (.env)
+
 ```env
 # API Configuration
 REACT_APP_API_URL=http://localhost:5000
@@ -389,13 +515,22 @@ REACT_APP_API_URL=http://localhost:5000
 ### CLI Commands
 
 #### Project Setup
+
 ```bash
 npm install -g mern-project-cli    # Install CLI globally
 devcli --version                   # Check CLI version
 devcli create <project-name>       # Create new MERN project
 ```
 
+```bash
+OR [Create frontend with shadcn+tailwind/ vite+tailwind]
+
+devcli create-frontend <project-name> --shadcn    # shadcn-frontend
+devcli create-frontend <project-name> --vite      # vite-frontend
+```
+
 #### Backend CLI Commands
+
 ```bash
 # Database Connection
 devcli mongodb-connect                                          # Connect MongoDB using project name
@@ -407,6 +542,7 @@ devcli mongoose-schema <schema-name> <fieldName:fieldType ...>  # Generate Mongo
 ```
 
 #### Frontend CLI Commands
+
 ```bash
 # Redux Setup
 devcli add-redux --init                                          # Initialize Redux in frontend
@@ -414,9 +550,17 @@ devcli add-redux --slice <name> --actions="action1,action2" --state="field1:type
 # Example: devcli add-redux --slice user --actions="login,logout" --state="username:string,isLoggedIn:boolean"
 ```
 
+#### Docker CLI Commands
+
+```bash
+# Docker Configuration
+devcli init-dockerfiles            # Generate Dockerfiles and docker-compose.yml
+```
+
 ### Development Commands
 
 #### Backend Development
+
 ```bash
 cd backend                 # Navigate to backend directory
 npm install                # Install dependencies
@@ -425,13 +569,22 @@ npm start                  # Start without auto-reload (production)
 ```
 
 #### Frontend Development
+
 ```bash
 cd frontend                # Navigate to frontend directory
 npm install                # Install dependencies
 npm start                  # Start development server
-
 ```
-<!-- 
+
+#### Docker Development
+
+```bash
+docker-compose up          # Start all services (backend, frontend, mongodb)
+docker-compose down        # Stop all services
+docker-compose up --build  # Rebuild and start all services
+```
+
+<!--
 ### CLI Options
 
 #### Backend Options
@@ -452,7 +605,7 @@ npm start                  # Start development server
 --actions <actions>      # Comma-separated list of actions (e.g., "login,logout")
 --state <state>          # Initial state fields (e.g., "username:string,isLoggedIn:boolean")
 ``` -->
-<!-- 
+<!--
 ### Common Project Commands
 ```bash
 # Start both frontend and backend (from project root)
@@ -464,10 +617,10 @@ cd backend && npm install
 cd frontend && npm install
 ``` -->
 
-<!-- 
+<!--
 ### Why Choose MERN Project Generator CLI?
 
-#### 🎯 Perfect For:
+#### 🎯 Perfect For
 - **Startups**: Launch MVPs faster with a solid foundation
 - **Freelancers**: Start client projects instantly
 - **Teams**: Maintain consistent project structure across developers
@@ -497,10 +650,10 @@ Skip the boring setup and jump straight into building your next big idea! Whethe
 ## 🔮 Future Enhancements
 
 1. **Code Generation**
-    More Code-Snippets
-
+   More Code-Snippets
 
 ## 🤝 Contribute to the Project
+
 We welcome and appreciate contributions to MERN Project Generator CLI! If you’d like to help improve this tool, feel free to do so.
 
 ## 📄 License
@@ -510,10 +663,12 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 ## 🌟 Support the Project
 
 If you find this tool helpful, please consider:
+
 - Giving it a star on [GitHub](https://github.com/manishraj27/mern-project-cli)
 - View on NPM [mern-project-cli](https://www.npmjs.com/package/mern-project-cli)
 - Sharing it with your fellow developers
 - Contributing to its development
+
 ---
 
 <div align="center">

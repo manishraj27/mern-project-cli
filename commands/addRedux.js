@@ -1,22 +1,22 @@
-import fs from "fs-extra";
-import path from "path";
-import chalk from "chalk";
-import { execSync } from "child_process";
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
+import { execSync } from 'child_process';
 
 export default function addReduxCommand(program) {
   program
-    .command("add-redux")
-    .description("Set up Redux store or add new slice")
-    .option("--init", "Initialize Redux setup")
-    .option("--slice <sliceName>", "Create a new Redux slice")
-    .option("--actions <actions>", "Actions for the slice (comma-separated)")
-    .option("--state <state>", "Initial state fields (name:type pairs)")
+    .command('add-redux')
+    .description('Set up Redux store or add new slice')
+    .option('--init', 'Initialize Redux setup')
+    .option('--slice <sliceName>', 'Create a new Redux slice')
+    .option('--actions <actions>', 'Actions for the slice (comma-separated)')
+    .option('--state <state>', 'Initial state fields (name:type pairs)')
     .action((options) => {
       const currentDir = process.cwd();
-      const isInFrontend = path.basename(currentDir) === "frontend";
+      const isInFrontend = path.basename(currentDir) === 'frontend';
       const baseDir = isInFrontend
-        ? path.join(currentDir, "src")
-        : path.join(currentDir, "frontend/src");
+        ? path.join(currentDir, 'src')
+        : path.join(currentDir, 'frontend/src');
 
       if (options.init) {
         initializeRedux(baseDir);
@@ -50,32 +50,32 @@ export const useAppSelector = useSelector;
 `;
 
   // Create store directory and files in JS
-  const storeDir = path.join(baseDir, "store");
+  const storeDir = path.join(baseDir, 'store');
 
   try {
     fs.mkdirpSync(storeDir);
-    fs.mkdirpSync(path.join(storeDir, "slices"));
+    fs.mkdirpSync(path.join(storeDir, 'slices'));
 
-    fs.writeFileSync(path.join(storeDir, "store.js"), storeContent);
-    fs.writeFileSync(path.join(storeDir, "hooks.js"), hooksContent);
+    fs.writeFileSync(path.join(storeDir, 'store.js'), storeContent);
+    fs.writeFileSync(path.join(storeDir, 'hooks.js'), hooksContent);
 
     // Update package.json to add Redux dependencies
-    const packageJsonPath = path.join(baseDir, "../package.json");
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+    const packageJsonPath = path.join(baseDir, '../package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
     packageJson.dependencies = {
       ...packageJson.dependencies,
-      "@reduxjs/toolkit": "^2.3.0 ",
-      "react-redux": "^9.1.2",
+      '@reduxjs/toolkit': '^2.3.0 ',
+      'react-redux': '^9.1.2',
     };
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     // Run npm install
-    console.log(chalk.cyan("\n📦 Installing dependencies..."));
-    execSync("npm install", { stdio: "inherit" });
+    console.log(chalk.cyan('\n📦 Installing dependencies...'));
+    execSync('npm install', { stdio: 'inherit' });
 
-    console.log(chalk.green("✅ Redux store initialized successfully"));
+    console.log(chalk.green('✅ Redux store initialized successfully'));
 
     // Show usage example
     console.log(
@@ -99,10 +99,15 @@ Then import your slice in the store.js and use it in your components.
 
 //slice file synch
 function createReduxSlice(baseDir, options) {
-  const { slice: sliceName, actions = "", state = "" } = options;
+  const { slice: sliceName, actions = '', state = '' } = options;
 
   // Define the path for the slice
-  const slicePath = path.join(baseDir, "store", "slices", `${sliceName}Slice.js`);
+  const slicePath = path.join(
+    baseDir,
+    'store',
+    'slices',
+    `${sliceName}Slice.js`
+  );
 
   let sliceContent;
   let existingActions = [];
@@ -112,13 +117,13 @@ function createReduxSlice(baseDir, options) {
     // Check if the slice file exists
     if (fs.existsSync(slicePath)) {
       // Read the existing slice content
-      sliceContent = fs.readFileSync(slicePath, "utf8");
+      sliceContent = fs.readFileSync(slicePath, 'utf8');
 
       // Extract existing actions
       const actionRegex = /const { (.*) } = (.*).actions;/;
       const matches = sliceContent.match(actionRegex);
       if (matches) {
-        existingActions = matches[1].split(',').map(action => action.trim());
+        existingActions = matches[1].split(',').map((action) => action.trim());
       }
 
       // Extract existing initial state
@@ -132,19 +137,33 @@ function createReduxSlice(baseDir, options) {
       sliceContent = '';
     }
   } catch (error) {
-    console.error(chalk.red(`❌ Failed to read existing slice: ${error.message}`));
+    console.error(
+      chalk.red(`❌ Failed to read existing slice: ${error.message}`)
+    );
     return;
   }
 
   // Parse new actions
-  const actionList = actions.split(",").map(action => action.trim()).filter(Boolean);
-  const newActions = actionList.filter(action => !existingActions.includes(action));
-  
+  const actionList = actions
+    .split(',')
+    .map((action) => action.trim())
+    .filter(Boolean);
+  const newActions = actionList.filter(
+    (action) => !existingActions.includes(action)
+  );
+
   // Parse new state
-  const stateFields = state.split(",").reduce((acc, field) => {
-    const [name, type] = field.split(":");
+  const stateFields = state.split(',').reduce((acc, field) => {
+    const [name, type] = field.split(':');
     if (!name || !type) return acc; // Ensure valid format
-    acc[name.trim()] = type === "array" ? [] : type === "boolean" ? false : type === "number" ? 0 : "";
+    acc[name.trim()] =
+      type === 'array'
+        ? []
+        : type === 'boolean'
+          ? false
+          : type === 'number'
+            ? 0
+            : '';
     return acc;
   }, {});
 
@@ -160,21 +179,30 @@ const initialState = ${JSON.stringify(existingState, null, 2)};
 const ${sliceName}Slice = createSlice({
   name: '${sliceName}',
   initialState,
-  reducers: {${existingActions.concat(newActions).map(action => `
+  reducers: {${existingActions
+    .concat(newActions)
+    .map(
+      (action) => `
     ${action}: (state, action) => {
       // Implement ${action} logic here
-    }`).join(",")}}
+    }`
+    )
+    .join(',')}}
 });
 
-export const { ${existingActions.concat(newActions).join(", ")} } = ${sliceName}Slice.actions;
+export const { ${existingActions.concat(newActions).join(', ')} } = ${sliceName}Slice.actions;
 export default ${sliceName}Slice.reducer;
 `;
 
   try {
     // Write the updated slice content to the file
     fs.writeFileSync(slicePath, sliceContent);
-    console.log(chalk.green(`✅ Redux slice '${sliceName}' updated successfully`));
+    console.log(
+      chalk.green(`✅ Redux slice '${sliceName}' updated successfully`)
+    );
   } catch (error) {
-    console.error(chalk.red(`❌ Failed to update Redux slice: ${error.message}`));
+    console.error(
+      chalk.red(`❌ Failed to update Redux slice: ${error.message}`)
+    );
   }
 }
