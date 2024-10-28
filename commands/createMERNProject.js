@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
+import createNextJsProject from './createNextJs.js';
 
 function checkNodeVersion() {
   const currentVersion = process.versions.node;
@@ -18,8 +19,11 @@ export default function createMERNProjectCommand(program) {
   program
     .command('create <projectName>')
     .description('Create a new MERN project')
-    .action((projectName) => {
+    .option('--next')
+    .action((projectName, opts) => {
       // Check Node.js version before proceeding
+      if (opts.next) return createNextJsProject(projectName);
+
       checkNodeVersion();
 
       const rootDir = path.join(process.cwd(), projectName);
