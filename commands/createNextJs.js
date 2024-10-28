@@ -99,9 +99,9 @@ export default function createNextJsProject(projectName) {
       const appDirsToCreate = ['(main)', '(auth)', 'api'];
       appPath = '';
       let isSrcDir = fs.existsSync(path.join(rootDir, 'src'));
-      
+
       if (isSrcDir) appPath = path.join(rootDir, 'src');
-      else appPath = rootDir
+      else appPath = rootDir;
 
       dirsToCreate.forEach((dir) => {
         const appDir = path.join(appPath, dir);
