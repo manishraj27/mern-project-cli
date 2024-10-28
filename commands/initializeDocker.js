@@ -154,5 +154,13 @@ volumes:
 
       // Final success message
       console.log(chalk.cyan('\n🎉 Docker files created successfully!'));
+      console.log(
+        chalk.yellow(
+          '📁 You can now run `docker-compose up` to start the application.'
+        ),
+        chalk.green(
+          '\n🔗 Visit http://localhost:3000 to see the frontend and http://localhost:5000 to see the backend.'
+        )
+      );
     });
 }
