@@ -459,18 +459,33 @@ This will start your application with:
 
 ### 7. Add ESLint
 
-Initialize ESLint in the backend, frontend, or both folders to ensure consistent code quality.
+Initialize ESLint in the specified directory (backend, frontend, or the current directory) to ensure consistent code quality.
 
 ```bash
-devcli add-eslint --backend  # Set up ESLint in the backend folder
-devcli add-eslint --frontend  # Set up ESLint in the frontend folder
-devcli add-eslint             # Set up ESLint in both folders
+devcli add-eslint [directory]   # Set up ESLint in the specified directory (defaults to current directory)
 ```
 
 #### What This Command Does:
 
-- **Configures ESLint**: Creates a `.eslintrc.json` file with recommended settings for your project based on the specified folder(s).
-- **Installs Dependencies**: Automatically installs ESLint and Prettier along with their necessary plugins.
+- **Configures ESLint**: Creates a `.eslintrc.json` file tailored to the environment (browser or Node.js) based on the specified directory.
+- **Installs Dependencies**: Automatically installs ESLint, Prettier, and their necessary plugins as development dependencies in the specified directory.
+
+#### Example Usage
+
+- To set up ESLint in the backend directory:
+  ```bash
+  devcli add-eslint backend
+  ```
+- To set up ESLint in the frontend directory:
+
+  ```bash
+  devcli add-eslint frontend
+  ```
+
+- To set up ESLint in the current directory (default):
+  ```bash
+  devcli add-eslint
+  ```
 
 #### Example Generated ESLint Configuration
 
@@ -479,8 +494,8 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 ```json
 {
   "env": {
-    "browser": true,
-    "node": true,
+    "browser": true, // Set to true if in the frontend directory
+    "node": true, // Set to true if in the backend directory
     "es2021": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
@@ -494,7 +509,7 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 #### Benefits
 
 - **Automates Setup**: Saves time by automating the ESLint configuration process.
-- **Ensures Consistency**: Helps maintain consistent linting rules across multiple projects.
+- **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
 
 ## 📖 Complete User Journey Example
 
