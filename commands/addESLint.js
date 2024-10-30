@@ -5,38 +5,23 @@ import chalk from 'chalk';
 
 export default function addESLintCommand(program) {
   program
-    .command('add-eslint')
-    .description('Initialize ESLint in the backend, frontend, or both folders')
-    .option('--backend', 'Set up ESLint in the backend folder')
-    .option('--frontend', 'Set up ESLint in the frontend folder')
-    .action((options) => {
-      // Step 1: Determine which folders to initialize
-      const currentDir = process.cwd();
-      const setupBackend =
-        options.backend || (!options.backend && !options.frontend);
-      const setupFrontend =
-        options.frontend || (!options.backend && !options.frontend);
-
-      // Step 2: Set paths for backend and frontend
-      const backendPath = setupBackend
-        ? path.join(currentDir, 'backend')
-        : null;
-      const frontendPath = setupFrontend
-        ? path.join(currentDir, 'frontend')
-        : null;
+    .command('add-eslint [directory]')
+    .description('Initialize ESLint in the specified directory')
+    .action((directory = '.') => {
+      const currentDir = directory;
 
       // Provide feedback on setup initiation
-      console.log(chalk.cyan('🛠 Setting up ESLint configurations...'));
+      console.log(
+        chalk.cyan('🛠 Setting up ESLint configurations in:', 'currentDir')
+      );
 
-      // Step 3: Helper function to set up ESLint in a specified path
+      // Helper function to set up ESLint in a specified path
       function setupESLint(dirPath) {
-        if (!dirPath) return;
-
         try {
           // Ensure the folder exists
           fs.ensureDirSync(dirPath);
 
-          // basic ESLint configuration file
+          // Basic ESLint configuration file
           const eslintConfigPath = path.join(dirPath, '.eslintrc.json');
           const eslintConfigContent = {
             env: {
@@ -54,7 +39,9 @@ export default function addESLintCommand(program) {
             JSON.stringify(eslintConfigContent, null, 2)
           );
           console.log(
-            chalk.green(`✅ ESLint config written to ${dirPath}/.eslintrc.json`)
+            chalk.green(
+              `✅ ESLint config written to ${path.join(dirPath, '.eslintrc.json')}`
+            )
           );
 
           // Install ESLint and Prettier dependencies
@@ -77,9 +64,8 @@ export default function addESLintCommand(program) {
         }
       }
 
-      // Step 4: Run setup for each specified folder
-      if (setupBackend) setupESLint(backendPath);
-      if (setupFrontend) setupESLint(frontendPath);
+      // Run setup for the specified directory
+      setupESLint(currentDir);
 
       // Final feedback
       console.log(chalk.cyan('✨ ESLint setup complete. Happy coding!'));
