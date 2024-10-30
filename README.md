@@ -467,7 +467,7 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
 
 #### What This Command Does:
 
-- **Configures ESLint**: Creates a `.eslintrc.json` file tailored to the environment (browser or Node.js) based on the specified directory.
+- **Configures ESLint**: Creates a `.eslintrc.json` file tailored to the environment (browser for React, Node.js for backend) based on the specified directory.
 - **Installs Dependencies**: Automatically installs ESLint, Prettier, and their necessary plugins as development dependencies in the specified directory.
 
 #### Example Usage
@@ -491,11 +491,54 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
 
 This command generates a basic ESLint configuration file (`.eslintrc.json`) that looks like this:
 
+**For Backend Directory:**
+
 ```json
 {
   "env": {
-    "browser": true, // Set to true if in the frontend directory
-    "node": true, // Set to true if in the backend directory
+    "browser": false,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {}
+}
+```
+
+**For Frontend Directory:**
+
+```json
+{
+  "env": {
+    "browser": true,
+    "node": false,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {}
+}
+```
+
+**For Arbitrary Folders (Defaulting to Node):**
+
+```json
+{
+  "env": {
+    "browser": false,
+    "node": true,
     "es2021": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
@@ -510,6 +553,7 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 
 - **Automates Setup**: Saves time by automating the ESLint configuration process.
 - **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
+- **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, assuming a Node.js environment by default.
 
 ## 📖 Complete User Journey Example
 
