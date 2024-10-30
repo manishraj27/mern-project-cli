@@ -452,6 +452,48 @@ This will start your application with:
 - Frontend running on `http://localhost:3000`
 - MongoDB running on port `27017`
 
+To include your changes in the README file for the `mern-project-cli`, you can add a new section to highlight the `add-eslint` command. Here’s how you can format it:
+
+---
+
+### 7. Add ESLint
+
+Initialize ESLint in the backend, frontend, or both folders to ensure consistent code quality.
+
+```bash
+devcli add-eslint --backend  # Set up ESLint in the backend folder
+devcli add-eslint --frontend  # Set up ESLint in the frontend folder
+devcli add-eslint             # Set up ESLint in both folders
+```
+
+#### What This Command Does:
+
+- **Configures ESLint**: Creates a `.eslintrc.json` file with recommended settings for your project based on the specified folder(s).
+- **Installs Dependencies**: Automatically installs ESLint and Prettier along with their necessary plugins.
+
+#### Example Generated ESLint Configuration
+
+This command generates a basic ESLint configuration file (`.eslintrc.json`) that looks like this:
+
+```json
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {}
+}
+```
+
+#### Benefits
+
+- **Automates Setup**: Saves time by automating the ESLint configuration process.
+- **Ensures Consistency**: Helps maintain consistent linting rules across multiple projects.
 
 ## 📖 Complete User Journey Example
 
