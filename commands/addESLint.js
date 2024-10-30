@@ -12,7 +12,7 @@ export default function addESLintCommand(program) {
 
       // Provide feedback on setup initiation
       console.log(
-        chalk.cyan('🛠 Setting up ESLint configurations in:', 'currentDir')
+        chalk.cyan('🛠 Setting up ESLint configurations in:', currentDir)
       );
 
       // Helper function to set up ESLint in a specified path
@@ -45,15 +45,22 @@ export default function addESLintCommand(program) {
           );
 
           // Install ESLint and Prettier dependencies
+          const folderName = path.basename(
+            dirPath === '.' ? process.cwd() : dirPath
+          ); // Get folder name or current directory name
           console.log(
-            chalk.cyan(`📦 Installing ESLint and Prettier in ${dirPath}...`)
+            chalk.cyan(
+              `📦 Installing ESLint and Prettier in "${folderName}" directory...`
+            )
           );
           execSync(
             `cd ${dirPath} && npm install eslint prettier eslint-config-prettier eslint-plugin-prettier --save-dev`,
             { stdio: 'inherit' }
           );
           console.log(
-            chalk.green(`✅ ESLint and Prettier installed in ${dirPath}`)
+            chalk.green(
+              `✅ ESLint and Prettier installed in "${folderName}" directory.`
+            )
           );
         } catch (error) {
           console.error(
