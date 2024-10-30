@@ -132,10 +132,13 @@ cd your-project-name/frontend
 ```
 npm start               # Start React App
 ```
+
 Option:
-```bash 
+
+```bash
 devcli create my_project --next
 ```
+
 ### 2. Connect MongoDB
 
 - Create database as your_project_name_db
@@ -384,7 +387,6 @@ your-project/
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
 
-
 ### 6. Initialize Docker Files
 
 Generate Dockerfiles for both backend and frontend, along with a docker-compose.yml file for your MERN stack project.
@@ -396,6 +398,7 @@ devcli init-dockerfiles
 #### What This Command Does:
 
 1. **Creates Backend Dockerfile**:
+
    - Uses Node.js 20 Alpine image
    - Sets up working directory
    - Installs dependencies
@@ -403,6 +406,7 @@ devcli init-dockerfiles
    - Exposes port 5000
 
 2. **Creates Frontend Dockerfile**:
+
    - Uses Node.js 20 Alpine image
    - Sets up working directory
    - Installs dependencies
@@ -448,13 +452,10 @@ docker-compose up
 ```
 
 This will start your application with:
+
 - Backend running on `http://localhost:5000`
 - Frontend running on `http://localhost:3000`
 - MongoDB running on port `27017`
-
-To include your changes in the README file for the `mern-project-cli`, you can add a new section to highlight the `add-eslint` command. Here’s how you can format it:
-
----
 
 ### 7. Add ESLint
 
