@@ -9,58 +9,82 @@ export default function addESLintCommand(program) {
     .description('Initialize ESLint in the specified directory')
     .action((directory = '.') => {
       const currentDir = directory;
-
       // Provide feedback on setup initiation
       console.log(
-        chalk.cyan('🛠 Setting up ESLint configurations in:', currentDir)
+        chalk.cyan(`🛠 Setting up ESLint configurations in: ${currentDir}`)
       );
 
       // Helper function to set up ESLint in a specified path
       function setupESLint(dirPath) {
         try {
-          // Ensure the folder exists
           fs.ensureDirSync(dirPath);
 
-          // Basic ESLint configuration file
-          const eslintConfigPath = path.join(dirPath, '.eslintrc.json');
+          const isFrontend = dirPath.includes('frontend');
           const eslintConfigContent = {
             env: {
-              browser: dirPath.includes('frontend'),
-              node: dirPath.includes('backend'),
+              browser: isFrontend,
+              node: !isFrontend,
               es2021: true,
             },
-            extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-            parserOptions: { ecmaVersion: 12 },
+            extends: [
+              'eslint:recommended',
+              'plugin:prettier/recommended',
+              ...(isFrontend ? ['plugin:react/recommended'] : []),
+            ],
+            parserOptions: { ecmaVersion: 12, sourceType: 'module' },
             rules: {},
           };
 
+          // Write .eslintrc.json file
+          const eslintConfigPath = path.join(dirPath, '.eslintrc.json');
           fs.writeFileSync(
             eslintConfigPath,
             JSON.stringify(eslintConfigContent, null, 2)
           );
           console.log(
-            chalk.green(
-              `✅ ESLint config written to ${path.join(dirPath, '.eslintrc.json')}`
-            )
+            chalk.green(`✅ ESLint config written to ${eslintConfigPath}`)
           );
 
-          // Install ESLint and Prettier dependencies
-          const folderName = path.basename(
-            dirPath === '.' ? process.cwd() : dirPath
-          ); // Get folder name or current directory name
+          // Add lint scripts to package.json
+          const packageJsonPath = path.join(dirPath, 'package.json');
+          const packageJson = fs.existsSync(packageJsonPath)
+            ? JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
+            : {};
+
+          packageJson.scripts = {
+            ...(packageJson.scripts || {}),
+            lint: 'eslint .',
+            'lint:fix': 'eslint . --fix',
+          };
+
+          fs.writeFileSync(
+            packageJsonPath,
+            JSON.stringify(packageJson, null, 2)
+          );
           console.log(
-            chalk.cyan(
-              `📦 Installing ESLint and Prettier in "${folderName}" directory...`
-            )
+            chalk.green(`✅ ESLint scripts added to ${packageJsonPath}`)
+          );
+
+          // Install ESLint dependencies
+          const dependencies = [
+            'eslint',
+            'prettier',
+            'eslint-config-prettier',
+            'eslint-plugin-prettier',
+            ...(isFrontend ? ['eslint-plugin-react'] : []),
+          ];
+
+          console.log(
+            chalk.cyan(`📦 Installing ESLint and Prettier in "${dirPath}"...`)
           );
           execSync(
-            `cd ${dirPath} && npm install eslint prettier eslint-config-prettier eslint-plugin-prettier --save-dev`,
-            { stdio: 'inherit' }
+            `cd ${dirPath} && npm install ${dependencies.join(' ')} --save-dev`,
+            {
+              stdio: 'inherit',
+            }
           );
           console.log(
-            chalk.green(
-              `✅ ESLint and Prettier installed in "${folderName}" directory.`
-            )
+            chalk.green(`✅ ESLint and Prettier installed in "${dirPath}".`)
           );
         } catch (error) {
           console.error(
@@ -71,10 +95,8 @@ export default function addESLintCommand(program) {
         }
       }
 
-      // Run setup for the specified directory
       setupESLint(currentDir);
 
-      // Final feedback
       console.log(chalk.cyan('✨ ESLint setup complete. Happy coding!'));
     });
 }
