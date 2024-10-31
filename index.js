@@ -12,6 +12,7 @@ import mongooseSchemaCommand from './commands/mongooseSchema.js';
 import addReduxCommand from './commands/addRedux.js';
 import createFrontend from './commands/createFrontend.js';
 import initializeDockerCommand from './commands/initializeDocker.js';
+import createController from './commands/createController.js';
 
 // Step 1: Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +40,7 @@ mongooseSchemaCommand(program);
 addReduxCommand(program);
 createFrontend(program);
 initializeDockerCommand(program);
+createController(program);
 
 // Step 5: Parse the provided arguments and start the CLI
 program.parse(process.argv);
