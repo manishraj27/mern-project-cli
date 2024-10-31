@@ -11,7 +11,7 @@ export default function createService(program) {
       const currentDir = process.cwd();
       const isInBackend = path.basename(currentDir) === 'backend';
 
-      // Correct spelling here
+      // service dir
       const serviceDir = isInBackend
         ? path.join(currentDir, 'services')
         : path.join(currentDir, 'backend', 'services');
@@ -31,7 +31,7 @@ export default function createService(program) {
         }
       }
 
-      // Service template with corrected syntax
+      // Service template
       const serviceContent = `
 // Service for ${capitalize(fileName)}
 import ${capitalize(fileName)} from '../models/${capitalize(fileName)}.js';
@@ -45,11 +45,14 @@ export default ${capitalize(fileName)}Service;
 
       // Write the service file to the services directory
       try {
-        const serviceFilePath = path.join(serviceDir, `${fileName}.js`);
+        const serviceFilePath = path.join(
+          serviceDir,
+          `${fileName.toLowerCase()}.js`
+        );
         fs.writeFileSync(serviceFilePath, serviceContent);
         console.log(
           chalk.green(
-            `✅ ${capitalize(fileName)} created at services/${fileName}.js`
+            `✅ ${capitalize(fileName)} created at services/${fileName.toLowerCase()}.js`
           )
         );
       } catch (error) {
@@ -62,7 +65,9 @@ export default ${capitalize(fileName)}Service;
       // Final success message
       console.log(chalk.cyan('\n📝 Next steps:'));
       console.log(
-        chalk.white(`1. Review your service in services/${fileName}.js`)
+        chalk.white(
+          `1. Review your service in services/${fileName.toLowerCase()}.js`
+        )
       );
       console.log(
         chalk.white('2. Import and use your service in your app as needed')

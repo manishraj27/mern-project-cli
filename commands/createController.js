@@ -112,11 +112,14 @@ export default ${capitalize(fileName)}Controller;
 
       // Write the controller file to the controllers directory
       try {
-        const controllerFilePath = path.join(controllerDir, `${fileName}.js`);
+        const controllerFilePath = path.join(
+          controllerDir,
+          `${fileName.toLowerCase()}.js`
+        );
         fs.writeFileSync(controllerFilePath, controllerContent);
         console.log(
           chalk.green(
-            `✅ ${capitalize(fileName)} created at controllers/${fileName}.js`
+            `✅ ${capitalize(fileName)} created at controllers/${fileName.toLowerCase()}.js`
           )
         );
       } catch (error) {
@@ -129,7 +132,9 @@ export default ${capitalize(fileName)}Controller;
       // Final success message
       console.log(chalk.cyan('\n📝 Next steps:'));
       console.log(
-        chalk.white(`1. Review your controller in controllers/${fileName}.js`)
+        chalk.white(
+          `1. Review your controller in controllers/${fileName.toLowerCase()}.js`
+        )
       );
       console.log(
         chalk.white('2. Import and use your controller in your app as needed')

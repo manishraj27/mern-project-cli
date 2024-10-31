@@ -18,7 +18,7 @@ describe('add-service command', () => {
   let program;
   const testDir = path.join(__dirname, '../backend/services');
   const fileName = 'Test';
-  const controllerFilePath = path.join(testDir, `${fileName}.js`);
+  const controllerFilePath = path.join(testDir, `${fileName.toLowerCase()}.js`);
 
   beforeAll(() => {
     // Ensure test directories are created before tests run
@@ -70,7 +70,7 @@ describe('add-service command', () => {
     );
     expect(consoleLogSpy).toHaveBeenCalledWith(
       expect.stringContaining(
-        `✅ ${fileName} created at services/${fileName}.js`
+        `✅ ${fileName} created at services/${fileName.toLowerCase()}.js`
       )
     );
   });

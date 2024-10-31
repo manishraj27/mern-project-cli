@@ -18,7 +18,7 @@ describe('add-controller command', () => {
   let program;
   const testDir = path.join(__dirname, '../backend/controllers');
   const fileName = 'Test';
-  const controllerFilePath = path.join(testDir, `${fileName}.js`);
+  const controllerFilePath = path.join(testDir, `${fileName.toLowerCase()}.js`);
 
   beforeAll(() => {
     // Ensure test directories are created before tests run
@@ -70,7 +70,7 @@ describe('add-controller command', () => {
     );
     expect(consoleLogSpy).toHaveBeenCalledWith(
       expect.stringContaining(
-        `✅ ${fileName} created at controllers/${fileName}.js`
+        `✅ ${fileName} created at controllers/${fileName.toLowerCase()}.js`
       )
     );
   });
