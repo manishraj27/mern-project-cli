@@ -459,7 +459,7 @@ This will start your application with:
 
 ### 7. Add ESLint
 
-Initialize ESLint in the specified directory (backend, frontend, or the current directory) to ensure consistent code quality.
+Initialize ESLint in the specified directory (frontend, backend, or the current directory) to ensure consistent code quality with tailored configurations based on the project type.
 
 ```bash
 devcli add-eslint [directory]   # Set up ESLint in the specified directory (defaults to current directory)
@@ -467,8 +467,10 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
 
 #### What This Command Does:
 
-- **Configures ESLint**: Creates a `.eslintrc.json` file tailored to the environment (browser for React, Node.js for backend) based on the specified directory.
+- **Automatically Detects Project Type**: Determines if the project is a React, Vue, TypeScript, Node.js, or plain JavaScript application.
+- **Configures ESLint**: Creates a `.eslintrc.json` file specific to the detected environment (e.g., browser for React, Node.js for backend).
 - **Installs Dependencies**: Automatically installs ESLint, Prettier, and their necessary plugins as development dependencies in the specified directory.
+- **Supports Multiple File Extensions**: Handles various file types based on the project structure.
 
 #### Example Usage
 
@@ -551,9 +553,9 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 
 #### Benefits
 
-- **Automates Setup**: Saves time by automating the ESLint configuration process.
+- **Automates Setup**: Saves time by automating the ESLint configuration process based on project type.
 - **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
-- **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, assuming a Node.js environment by default.
+- **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, defaulting to Node.js environment.
 
 ## 📖 Complete User Journey Example
 
