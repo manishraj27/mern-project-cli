@@ -1,33 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { execSync } from 'child_process';
-
-const detectProjectType = (dirPath) => {
-  try {
-    const packageJsonPath = path.join(dirPath, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) return 'javascript';
-
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const dependencies = {
-      ...packageJson.dependencies,
-      ...packageJson.devDependencies,
-    };
-
-    if (dependencies['react']) return 'react';
-    if (dependencies['vue']) return 'vue';
-    if (dependencies['typescript']) return 'typescript';
-    if (dependencies['express'] || dependencies['nest']) return 'node';
-    return 'javascript';
-  } catch {
-    return 'javascript';
-  }
-};
+import detectProjectType from '../utils/detectProjectType.js';
 
 const getESLintConfig = (projectType) => {
   const baseConfig = {
     env: {
       es2021: true,
-      // Set environment based on project type
       browser: !['node'].includes(projectType),
       node: ['node', 'typescript'].includes(projectType),
     },
