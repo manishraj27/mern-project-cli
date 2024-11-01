@@ -4,6 +4,8 @@ name: Status Checks
 on:
   pull_request:
     branches: [ main, master ]
+  pull_request_target:
+    branches: [ main, master ]
   push:
     branches: [ main, master ]
 
