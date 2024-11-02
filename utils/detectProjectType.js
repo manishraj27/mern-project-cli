@@ -1,3 +1,8 @@
+// import all necessary modules
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+
 export const detectProjectType = (dirPath) => {
   try {
     const packageJsonPath = path.join(dirPath, 'package.json');

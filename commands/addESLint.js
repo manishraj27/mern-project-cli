@@ -3,7 +3,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
 import readline from 'readline';
-import { detectProjectType } from '../utils/detectProjectType.js';  
+import { detectProjectType } from '../utils/detectProjectType.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,33 +16,6 @@ const promptOverwrite = (message) => {
       resolve(answer.toLowerCase() === 'y');
     });
   });
-};
-
-// Project type detection helpers
-const detectProjectType = (dirPath) => {
-  try {
-    const packageJsonPath = path.join(dirPath, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
-      return 'javascript';
-    }
-
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const dependencies = {
-      ...packageJson.dependencies,
-      ...packageJson.devDependencies,
-    };
-
-    if (dependencies['react']) return 'react';
-    if (dependencies['vue']) return 'vue';
-    if (dependencies['typescript']) return 'typescript';
-    if (dependencies['express'] || dependencies['nest']) return 'node';
-    return 'javascript';
-  } catch (error) {
-    console.warn(
-      chalk.yellow(`Warning: Could not detect project type: ${error.message}`)
-    );
-    return 'javascript';
-  }
 };
 
 // Configuration generators
@@ -180,7 +153,7 @@ const setupESLint = async (dirPath) => {
     // Generate and write ESLint config
     const eslintConfig = getESLintConfig(projectType, isBackend);
     const eslintConfigPath = path.join(dirPath, '.eslintrc.json');
-    
+
     if (fs.existsSync(eslintConfigPath)) {
       const overwrite = await promptOverwrite(
         `.eslintrc.json exists in ${dirPath}. Overwrite?`
@@ -190,13 +163,13 @@ const setupESLint = async (dirPath) => {
         return;
       }
     }
-    
+
     await fs.writeJSON(eslintConfigPath, eslintConfig, { spaces: 2 });
     console.log(chalk.green(`✅ ESLint config written to ${eslintConfigPath}`));
 
     // Create .prettierrc
     const prettierConfigPath = path.join(dirPath, '.prettierrc');
-    
+
     if (fs.existsSync(prettierConfigPath)) {
       const overwrite = await promptOverwrite(
         `.prettierrc exists in ${dirPath}. Overwrite?`
@@ -206,7 +179,7 @@ const setupESLint = async (dirPath) => {
         return;
       }
     }
-    
+
     const prettierConfig = {
       singleQuote: true,
       trailingComma: 'es5',
@@ -214,7 +187,9 @@ const setupESLint = async (dirPath) => {
       tabWidth: 2,
     };
     await fs.writeJSON(prettierConfigPath, prettierConfig, { spaces: 2 });
-    console.log(chalk.green(`✅ Prettier config written to ${prettierConfigPath}`));
+    console.log(
+      chalk.green(`✅ Prettier config written to ${prettierConfigPath}`)
+    );
 
     const packageJsonPath = path.join(dirPath, 'package.json');
     const packageJson = fs.existsSync(packageJsonPath)
@@ -248,8 +223,11 @@ const setupESLint = async (dirPath) => {
       '*.min.js',
       '*.config.js',
     ].join('\n');
-    
-    if (!fs.existsSync(eslintIgnorePath) || await promptOverwrite('.eslintignore exists. Overwrite?')) {
+
+    if (
+      !fs.existsSync(eslintIgnorePath) ||
+      (await promptOverwrite('.eslintignore exists. Overwrite?'))
+    ) {
       await fs.writeFile(eslintIgnorePath, eslintIgnore);
       console.log(chalk.green(`✅ Created ${eslintIgnorePath}`));
     }
@@ -263,7 +241,6 @@ const setupESLint = async (dirPath) => {
   }
 };
 
-
 // CLI command registration
 export default function addESLintCommand(program) {
   program
@@ -271,7 +248,7 @@ export default function addESLintCommand(program) {
     .description('Initialize ESLint and Prettier in the specified directory')
     .option('-f, --force', 'Force installation even if configs exist')
     .option('-s, --skip-install', 'Skip dependency installation')
-    /* eslint-disable-next-line default-param-last */
+
     .action(async (directory = '.', options) => {
       const dirs = ['frontend', 'backend']
         .map((dir) => path.join(directory, dir))
