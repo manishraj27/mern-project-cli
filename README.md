@@ -467,10 +467,11 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
 
 #### What This Command Does:
 
-- **Automatically Detects Project Type**: Determines if the project is a React, Vue, TypeScript, Node.js, or plain JavaScript application.
+- **Automatically Detects Project Type**: Determines if the project is a React, Vue, TypeScript, Node.js, Next.js, or plain JavaScript application.
 - **Configures ESLint**: Creates a `.eslintrc.json` file specific to the detected environment (e.g., browser for React, Node.js for backend).
 - **Installs Dependencies**: Automatically installs ESLint, Prettier, and their necessary plugins as development dependencies in the specified directory.
 - **Supports Multiple File Extensions**: Handles various file types based on the project structure.
+- **User Confirmation for Overwrites**: Prompts the user before overwriting existing configuration files to prevent accidental data loss.
 
 #### Example Usage
 
@@ -479,11 +480,9 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
   devcli add-eslint backend
   ```
 - To set up ESLint in the frontend directory:
-
   ```bash
   devcli add-eslint frontend
   ```
-
 - To set up ESLint in the current directory (default):
   ```bash
   devcli add-eslint
@@ -491,64 +490,62 @@ devcli add-eslint [directory]   # Set up ESLint in the specified directory (defa
 
 #### Example Generated ESLint Configuration
 
-This command generates a basic ESLint configuration file (`.eslintrc.json`) that looks like this:
-
-**For Backend Directory:**
+**For Backend Directory**:
 
 ```json
 {
-  "env": {
-    "browser": false,
-    "node": true,
-    "es2021": true
-  },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "parserOptions": {
-    "ecmaVersion": 12
-  },
-  "rules": {}
-}
+     "env": {
+       "browser": false,
+       "node": true,
+       "es2021": true
+     },
+     "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+     "parserOptions": {
+       "ecmaVersion": 12
+     },
+     "rules": {}
+   }
 ```
 
-**For Frontend Directory:**
+**For Frontend Directory**:
 
 ```json
 {
-  "env": {
-    "browser": true,
-    "node": false,
-    "es2021": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 12,
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "rules": {}
-}
-```
+     "env": {
+       "browser": true,
+       "node": false,
+       "es2021": true
+     },
+     "extends": [
+       "eslint:recommended",
+       "plugin:react/recommended",
+       "plugin:prettier/recommended"
+     ],
+     "parserOptions": {
+       "ecmaVersion": 12,
+       "ecmaFeatures": {
+         "jsx": true
+       }
+     },
+     "rules": {}
+   }
+   ```
 
-**For Arbitrary Folders (Defaulting to Node):**
+**For Arbitrary Folders (Defaulting to Node)**:
 
 ```json
-{
-  "env": {
-    "browser": false,
-    "node": true,
-    "es2021": true
-  },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "parserOptions": {
-    "ecmaVersion": 12
-  },
-  "rules": {}
-}
+   {
+     "env": {
+       "browser": false,
+       "node": true,
+       "es2021": true
+     },
+     "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+     "parserOptions": {
+       "ecmaVersion": 12
+     },
+     "rules": {}
+   }
 ```
 
 #### Benefits
@@ -556,6 +553,8 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 - **Automates Setup**: Saves time by automating the ESLint configuration process based on project type.
 - **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
 - **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, defaulting to Node.js environment.
+- **Improved Error Handling**: Detects and warns users of issues that may arise during setup, making it more reliable.
+- **Enhanced Logging**: Provides detailed information for each step, aiding in transparency and debugging.
 
 ## 📖 Complete User Journey Example
 

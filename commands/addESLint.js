@@ -2,6 +2,21 @@ import fs from 'fs-extra';
 import path from 'path';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
+import readline from 'readline';
+import { detectProjectType } from '../utils/detectProjectType.js';  
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const promptOverwrite = (message) => {
+  return new Promise((resolve) => {
+    rl.question(chalk.yellow(`${message} (y/n): `), (answer) => {
+      resolve(answer.toLowerCase() === 'y');
+    });
+  });
+};
 
 // Project type detection helpers
 const detectProjectType = (dirPath) => {
@@ -165,23 +180,42 @@ const setupESLint = async (dirPath) => {
     // Generate and write ESLint config
     const eslintConfig = getESLintConfig(projectType, isBackend);
     const eslintConfigPath = path.join(dirPath, '.eslintrc.json');
+    
+    if (fs.existsSync(eslintConfigPath)) {
+      const overwrite = await promptOverwrite(
+        `.eslintrc.json exists in ${dirPath}. Overwrite?`
+      );
+      if (!overwrite) {
+        console.log(chalk.yellow('⚠️ Skipping .eslintrc.json creation.'));
+        return;
+      }
+    }
+    
     await fs.writeJSON(eslintConfigPath, eslintConfig, { spaces: 2 });
     console.log(chalk.green(`✅ ESLint config written to ${eslintConfigPath}`));
 
     // Create .prettierrc
+    const prettierConfigPath = path.join(dirPath, '.prettierrc');
+    
+    if (fs.existsSync(prettierConfigPath)) {
+      const overwrite = await promptOverwrite(
+        `.prettierrc exists in ${dirPath}. Overwrite?`
+      );
+      if (!overwrite) {
+        console.log(chalk.yellow('⚠️ Skipping .prettierrc creation.'));
+        return;
+      }
+    }
+    
     const prettierConfig = {
       singleQuote: true,
       trailingComma: 'es5',
       printWidth: 80,
       tabWidth: 2,
     };
-    const prettierConfigPath = path.join(dirPath, '.prettierrc');
     await fs.writeJSON(prettierConfigPath, prettierConfig, { spaces: 2 });
-    console.log(
-      chalk.green(`✅ Prettier config written to ${prettierConfigPath}`)
-    );
+    console.log(chalk.green(`✅ Prettier config written to ${prettierConfigPath}`));
 
-    // Update package.json
     const packageJsonPath = path.join(dirPath, 'package.json');
     const packageJson = fs.existsSync(packageJsonPath)
       ? await fs.readJSON(packageJsonPath)
@@ -195,18 +229,17 @@ const setupESLint = async (dirPath) => {
     };
 
     await fs.writeJSON(packageJsonPath, packageJson, { spaces: 2 });
-    console.log(chalk.green(`✅ Scripts added to package.json`));
+    console.log(chalk.green(`✅ Scripts added to ${packageJsonPath}`));
 
-    // Install dependencies
     const dependencies = getDependencies(projectType, isBackend);
-    console.log(chalk.cyan(`📦 Installing dependencies...`));
-
+    console.log(chalk.cyan('📦 Installing dependencies...'));
     execSync(`npm install ${dependencies.join(' ')} --save-dev`, {
       stdio: 'inherit',
       cwd: dirPath,
     });
 
     // Create .eslintignore
+    const eslintIgnorePath = path.join(dirPath, '.eslintignore');
     const eslintIgnore = [
       'node_modules',
       'build',
@@ -215,16 +248,21 @@ const setupESLint = async (dirPath) => {
       '*.min.js',
       '*.config.js',
     ].join('\n');
-
-    await fs.writeFile(path.join(dirPath, '.eslintignore'), eslintIgnore);
-    console.log(chalk.green(`✅ Created .eslintignore`));
+    
+    if (!fs.existsSync(eslintIgnorePath) || await promptOverwrite('.eslintignore exists. Overwrite?')) {
+      await fs.writeFile(eslintIgnorePath, eslintIgnore);
+      console.log(chalk.green(`✅ Created ${eslintIgnorePath}`));
+    }
 
     return true;
   } catch (error) {
     console.error(chalk.red(`❌ Setup failed: ${error.message}`));
     return false;
+  } finally {
+    rl.close();
   }
 };
+
 
 // CLI command registration
 export default function addESLintCommand(program) {
@@ -242,13 +280,11 @@ export default function addESLintCommand(program) {
       if (dirs.length === 0) {
         dirs.push(directory);
       }
-      // ... rest of the code
 
       console.log(chalk.cyan(`🚀 Setting up ESLint in: ${dirs.join(', ')}`));
 
       for (const dir of dirs) {
         const configExists = fs.existsSync(path.join(dir, '.eslintrc.json'));
-
         if (configExists && !options.force) {
           console.log(
             chalk.yellow(
