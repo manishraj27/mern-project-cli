@@ -132,10 +132,13 @@ cd your-project-name/frontend
 ```
 npm start               # Start React App
 ```
+
 Option:
-```bash 
+
+```bash
 devcli create my_project --next
 ```
+
 ### 2. Connect MongoDB
 
 - Create database as your_project_name_db
@@ -384,7 +387,6 @@ your-project/
 - Customize theme in `tailwind.config.js`
 - Add your own components in `src/components`
 
-
 ### 6. Initialize Docker Files
 
 Generate Dockerfiles for both backend and frontend, along with a docker-compose.yml file for your MERN stack project.
@@ -396,6 +398,7 @@ devcli init-dockerfiles
 #### What This Command Does:
 
 1. **Creates Backend Dockerfile**:
+
    - Uses Node.js 20 Alpine image
    - Sets up working directory
    - Installs dependencies
@@ -403,6 +406,7 @@ devcli init-dockerfiles
    - Exposes port 5000
 
 2. **Creates Frontend Dockerfile**:
+
    - Uses Node.js 20 Alpine image
    - Sets up working directory
    - Installs dependencies
@@ -448,10 +452,110 @@ docker-compose up
 ```
 
 This will start your application with:
+
 - Backend running on `http://localhost:5000`
 - Frontend running on `http://localhost:3000`
 - MongoDB running on port `27017`
 
+### 7. Add ESLint
+
+Initialize ESLint in the specified directory (frontend, backend, or the current directory) to ensure consistent code quality with tailored configurations based on the project type.
+
+```bash
+devcli add-eslint [directory]   # Set up ESLint in the specified directory (defaults to current directory)
+```
+
+#### What This Command Does:
+
+- **Automatically Detects Project Type**: Determines if the project is a React, Vue, TypeScript, Node.js, or plain JavaScript application.
+- **Configures ESLint**: Creates a `.eslintrc.json` file specific to the detected environment (e.g., browser for React, Node.js for backend).
+- **Installs Dependencies**: Automatically installs ESLint, Prettier, and their necessary plugins as development dependencies in the specified directory.
+- **Supports Multiple File Extensions**: Handles various file types based on the project structure.
+
+#### Example Usage
+
+- To set up ESLint in the backend directory:
+  ```bash
+  devcli add-eslint backend
+  ```
+- To set up ESLint in the frontend directory:
+
+  ```bash
+  devcli add-eslint frontend
+  ```
+
+- To set up ESLint in the current directory (default):
+  ```bash
+  devcli add-eslint
+  ```
+
+#### Example Generated ESLint Configuration
+
+This command generates a basic ESLint configuration file (`.eslintrc.json`) that looks like this:
+
+**For Backend Directory:**
+
+```json
+{
+  "env": {
+    "browser": false,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {}
+}
+```
+
+**For Frontend Directory:**
+
+```json
+{
+  "env": {
+    "browser": true,
+    "node": false,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {}
+}
+```
+
+**For Arbitrary Folders (Defaulting to Node):**
+
+```json
+{
+  "env": {
+    "browser": false,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {}
+}
+```
+
+#### Benefits
+
+- **Automates Setup**: Saves time by automating the ESLint configuration process based on project type.
+- **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
+- **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, defaulting to Node.js environment.
 
 ## 📖 Complete User Journey Example
 
