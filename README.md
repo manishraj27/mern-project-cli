@@ -38,6 +38,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [4. devcli add-redux](#4-add-redux)
   - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
   - [6. devcli init-dockerfiles](#6-initialize-docker-files)
+  - [7. devcli add-eslint](#7-add-eslint-and-prettierrc)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -457,7 +458,7 @@ This will start your application with:
 - Frontend running on `http://localhost:3000`
 - MongoDB running on port `27017`
 
-### 7. Add ESLint
+### 7. Add ESLint and Prettierrc
 
 Initialize ESLint in the specified directory (frontend, backend, or the current directory) to ensure consistent code quality with tailored configurations based on the project type.
 
@@ -588,7 +589,13 @@ devcli mongoose-schema Blog name:String category:String
 cd ../frontend
 devcli add-redux --init
 
-# Step 8: Create blog slice for Redux
+# Step 8: Set up Es-lint and prettierrc
+cd ../backend
+devcli add-eslint
+
+cd ../frontend
+devcli add-eslint
+# Step 9: Create blog slice for Redux
 devcli add-redux --slice blog --actions="addPost,deletePost,updatePost" --state="posts:array,loading:boolean"
 
 🎉 Congratulations! Your blog application structure is ready with:
