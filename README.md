@@ -39,7 +39,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
   - [6. devcli init-dockerfiles](#6-initialize-docker-files)
   - [7. devcli add-eslint](#7-add-eslint-and-prettierrc)
-  - [8. devcli add-jwt-auth]()
+  - [8. devcli add-jwt-auth](#8-add-jwt-authetication-and-authorization)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
