@@ -13,6 +13,7 @@ import addReduxCommand from './commands/addRedux.js';
 import createFrontend from './commands/createFrontend.js';
 import initializeDockerCommand from './commands/initializeDocker.js';
 import addESLintCommand from './commands/addESLint.js';
+import addJWTAuthCommand from './commands/addJWTAuth.js';
 
 // Step 1: Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -41,6 +42,7 @@ addReduxCommand(program);
 createFrontend(program);
 initializeDockerCommand(program);
 addESLintCommand(program);
+addJWTAuthCommand(program);
 
 // Step 5: Parse the provided arguments and start the CLI
 program.parse(process.argv);

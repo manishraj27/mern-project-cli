@@ -3,17 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import createNextJsProject from './createNextJs.js';
-
-function checkNodeVersion() {
-  const currentVersion = process.versions.node;
-  const majorVersion = currentVersion.split('.')[0];
-  if (majorVersion < 14) {
-    console.error(
-      `Your Node.js version (${currentVersion}) is not supported. Please use Node.js 14.x or higher.`
-    );
-    process.exit(1);
-  }
-}
+import { checkNodeVersion } from '../utils/checkNodeVersion.js';
 
 export default function createMERNProjectCommand(program) {
   program

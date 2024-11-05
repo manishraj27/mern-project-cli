@@ -39,6 +39,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
   - [6. devcli init-dockerfiles](#6-initialize-docker-files)
   - [7. devcli add-eslint](#7-add-eslint-and-prettierrc)
+  - [8. devcli add-jwt-auth]()
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -558,6 +559,80 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 - **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
 - **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, defaulting to Node.js environment.
 
+### 8. Add JWT Authetication and Authorization 
+Here is the content for the 8th command, "Add JWT Authentication":
+
+### 8. Add JWT Authentication and Authorization
+
+Add JWT authentication boilerplate to your backend project.
+
+```bash
+devcli add-jwt-auth
+```
+
+#### What This Command Does:
+
+1. **Creates Necessary Directories**:
+   - `controllers/authController.js`
+   - `middlewares/authMiddleware.js`
+   - `models/userModel.js`
+   - `routes/authRoutes.js`
+
+2. **Generates Authentication Logic**:
+   - `authController.js` - Handles user registration and login with JWT token generation.
+   - `authMiddleware.js` - Implements middleware to authenticate and authorize requests using JWT tokens.
+   - `userModel.js` - Defines a Mongoose schema for the User model.
+   - `authRoutes.js` - Defines API routes for authentication, including register, login, and a protected route.
+
+3. **Installs Required Dependencies**:
+   - `bcryptjs` - For password hashing
+   - `jsonwebtoken` - For generating and verifying JWT tokens
+
+4. **Integrates Authentication Routes**:
+   - Adds the authentication routes to the `server.js` file.
+
+5. **Provides Next Steps**:
+   - Update the `.env` file with a secure `JWT_SECRET`.
+   - Start the server and test the authentication routes:
+     - `POST /api/auth/register`: Register a new user
+     - `POST /api/auth/login`: Log in and get the JWT token
+     - `GET /api/auth/protected`: Access the protected route with the JWT token
+
+#### Usage:
+
+1. Run the command in your project's `backend` directory:
+
+   ```bash
+   devcli add-jwt-auth
+   ```
+
+2. Update the `.env` file in the `backend` directory with a secure `JWT_SECRET`.
+3. Start the server and test the authentication routes.
+
+#### Generated Files:
+
+```
+backend/
+├── controllers/
+│   └── authController.js
+├── middlewares/
+│   └── authMiddleware.js
+├── models/
+│   └── userModel.js
+├── routes/
+│   └── authRoutes.js
+```
+
+The generated files implement the following functionality:
+
+1. **authController.js**: Handles user registration and login, generating JWT tokens.
+2. **authMiddleware.js**: Middleware to authenticate and authorize requests using JWT tokens.
+3. **userModel.js**: Mongoose schema and model for the User.
+4. **authRoutes.js**: API routes for authentication, including register, login, and a protected route.
+
+After running this command, you can start using the authentication system in your backend application.
+
+
 ## 📖 Complete User Journey Example
 
 Let's create a blog application from scratch:
@@ -597,6 +672,10 @@ cd ../frontend
 devcli add-eslint
 # Step 9: Create blog slice for Redux
 devcli add-redux --slice blog --actions="addPost,deletePost,updatePost" --state="posts:array,loading:boolean"
+
+# Step 10: Add jwt authetication 
+cd ..backend
+devcli add-jwt-auth
 
 🎉 Congratulations! Your blog application structure is ready with:
 - Backend running on `http://localhost:5000`
