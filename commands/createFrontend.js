@@ -338,6 +338,7 @@ export default defineConfig({
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
+import default from './../eslint.config';
 
 // https://vite.dev/config/
 export default defineConfig({
