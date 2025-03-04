@@ -235,6 +235,146 @@ ${chalk.yellow('npx shadcn@latest add <component-name>')}
   );
 }
 
+function createViteProject(projectName) {
+  checkNodeVersion();
+  const rootDir = path.join(process.cwd(), projectName);
+
+  // Step 1: Create Vite Project
+  console.log('📦 Creating Vite React project...');
+  try {
+    execSync(`npm create vite@latest ${projectName} -- --template react-swc`, {
+      stdio: 'inherit',
+    });
+    console.log('✅ Vite project created successfully.');
+  } catch (error) {
+    console.error(`❌ Failed to create Vite project: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Change to project directory
+  process.chdir(rootDir);
+
+  // Step 2: Install dependencies
+  console.log('📦 Installing dependencies...');
+  try {
+    execSync('npm install', { stdio: 'inherit' });
+    console.log('✅ Dependencies installed successfully.');
+  } catch (error) {
+    console.error(`❌ Failed to install dependencies: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 3: Install Tailwind CSS
+  console.log('📦 Installing Tailwind CSS...');
+  try {
+    execSync('npm install tailwindcss @tailwindcss/vite', { stdio: 'inherit' });
+    console.log('✅ Tailwind CSS installed successfully.');
+  } catch (error) {
+    console.error(`❌ Failed to install Tailwind CSS: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 4: Update index.css
+  const indexCss = `@import "tailwindcss";`;
+  try {
+    fs.writeFileSync(path.join(rootDir, 'src', 'index.css'), indexCss);
+    console.log('✅ index.css updated.');
+  } catch (error) {
+    console.error(`❌ Failed to update index.css: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 5: Update vite.config.js
+  const viteConfig = `import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})`;
+
+  try {
+    fs.writeFileSync(path.join(rootDir, 'vite.config.js'), viteConfig);
+    console.log('✅ vite.config.js updated.');
+  } catch (error) {
+    console.error(`❌ Failed to update vite.config.js: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 6: Create jsconfig.json
+  const jsConfig = {
+    compilerOptions: {
+      baseUrl: '.',
+      paths: {
+        '@/*': ['./src/*'],
+      },
+    },
+  };
+
+  try {
+    fs.writeFileSync(
+      path.join(rootDir, 'jsconfig.json'),
+      JSON.stringify(jsConfig, null, 2)
+    );
+    console.log('✅ jsconfig.json created.');
+  } catch (error) {
+    console.error(`❌ Failed to create jsconfig.json: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 7: Install @types/node
+  console.log('📦 Installing @types/node...');
+  try {
+    execSync('npm install -D @types/node', { stdio: 'inherit' });
+    console.log('✅ @types/node installed successfully.');
+  } catch (error) {
+    console.error(`❌ Failed to install @types/node: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Step 8: Update vite.config.js with path alias
+  const updatedViteConfig = `import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+})`;
+
+  try {
+    fs.writeFileSync(path.join(rootDir, 'vite.config.js'), updatedViteConfig);
+    console.log('✅ vite.config.js updated with path alias.');
+  } catch (error) {
+    console.error(`❌ Failed to update vite.config.js: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Final success message
+  console.log(
+    `\n🎉 React project "${projectName}" with Tailwind CSS created successfully!`
+  );
+
+  console.log(
+    `${chalk.green.bold('To get started:')}
+${chalk.blue(`cd ${projectName}`)}
+${chalk.yellow('npm run dev')}
+
+${chalk.magenta.bold('Available commands:')}
+${chalk.yellow('npm run dev')} - Start development server
+${chalk.yellow('npm run build')} - Build for production
+${chalk.yellow('npm run preview')} - Preview production build
+`
+  );
+}
+
 export default function createFrontend(program) {
   program
     .command('create-frontend <projectName>')
@@ -259,7 +399,7 @@ export default function createFrontend(program) {
       if (options.shadcn) {
         createShadcnProject(projectName);
       } else if (options.vite) {
-        //createViteProject(projectName);
+        createViteProject(projectName);
       }
     });
 }
