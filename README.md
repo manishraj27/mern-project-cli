@@ -42,6 +42,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [6. devcli init-dockerfiles](#6-initialize-docker-files)
   - [7. devcli add-eslint](#7-add-eslint-and-prettierrc)
   - [8. devcli add-jwt-auth](#8-add-jwt-authetication-and-authorization)
+  - [9. devcli deploy --vercel](#9-deploy-frontend-to-Vercel)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
 - [Contribute](#-contribute-to-the-project)
@@ -569,8 +570,6 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 ### 8. Add JWT Authetication and Authorization 
 Here is the content for the 8th command, "Add JWT Authentication":
 
-### 8. Add JWT Authentication and Authorization
-
 Add JWT authentication boilerplate to your backend project.
 
 ```bash
@@ -638,6 +637,133 @@ The generated files implement the following functionality:
 4. **authRoutes.js**: API routes for authentication, including register, login, and a protected route.
 
 After running this command, you can start using the authentication system in your backend application.
+
+### 9. Deploy Frontend to Vercel
+Deploy your frontend application to Vercel with a single command. This feature supports production deployments, preview deployments, custom domains, and automatic environment variable handling.
+
+# 🚀 Frontend Deployment to Vercel CLI Guide
+
+## Overview
+Deploy your frontend application to Vercel with a single command using the `devcli` tool. This feature supports production deployments, preview deployments, custom domains, and automatic environment variable handling.
+
+## Command Syntax
+```bash
+devcli deploy --vercel [options]
+```
+
+## Options
+
+| Option | Description |
+|--------|-------------|
+| `--vercel` | Deploy the frontend to Vercel |
+| `--preview` | Deploy a preview version (not production) |
+| `--domain <domain>` | Specify a custom domain for deployment (e.g., `myapp.com`) |
+
+## Features
+
+#### 1. Automatic Environment Variable Handling
+- Uploads environment variables from `.env` files automatically
+- Validates required environment variables before deployment
+
+#### 2. Preview Deployments
+- Deploy a preview version of your app for testing and validation
+
+#### 3. Custom Domain Support
+- Deploy your application to a custom domain
+
+#### 4. Deployment Status and URL
+- Displays the deployment URL after successful deployment
+
+#### 5. Vercel Login Check
+- Automatically checks if the user is logged in to Vercel
+- Prompts for login if not authenticated
+
+#### Usage Examples
+
+#### 1. Production Deployment
+```bash
+devcli deploy --vercel
+```
+
+**Expected Output:**
+```
+🚀 Deploying frontend to Vercel...
+📦 Uploading environment variables...
+✅ Frontend deployed successfully!
+
+🎉 Your frontend has been deployed to Vercel!
+👉 Open the deployed URL: https://myapp.vercel.app
+```
+
+#### 2. Preview Deployment
+```bash
+devcli deploy --vercel --preview
+```
+
+**Expected Output:**
+```
+🚀 Deploying frontend to Vercel (preview)...
+📦 Uploading environment variables...
+✅ Frontend deployed successfully!
+
+🎉 Your frontend has been deployed to Vercel!
+👉 Open the preview URL: https://myapp-git-branch.vercel.app
+```
+
+#### 3. Custom Domain Deployment
+```bash
+devcli deploy --vercel --domain myapp.com
+```
+
+**Expected Output:**
+```
+🚀 Deploying frontend to Vercel with custom domain...
+📦 Uploading environment variables...
+✅ Frontend deployed successfully!
+
+🎉 Your frontend has been deployed to Vercel!
+👉 Open the deployed URL: https://myapp.com
+```
+
+### Prerequisites
+
+### Vercel CLI Installation
+Install the Vercel CLI globally:
+```bash
+npm install -g vercel
+```
+
+### Vercel Login
+Log in to Vercel:
+```bash
+vercel login
+```
+
+### Error Handling
+
+#### 1. Invalid Directory
+```
+❌ This does not seem to be a valid frontend app. Make sure you are in the root of your frontend project.
+```
+
+#### 2. Vercel CLI Not Installed
+```
+❌ Vercel CLI is not installed. Please install it using `npm install -g vercel`.
+```
+
+#### 3. Vercel Login Required
+```
+🔑 You are not logged in to Vercel. Please log in to continue.
+```
+
+### Best Practices
+- Ensure your project has a valid `package.json`
+- Configure your Vercel project settings in the Vercel dashboard
+- Use environment variables for sensitive configuration
+- Regularly test preview deployments before production
+
+### Support
+For additional help, consult the Vercel documentation or contact your development team's support channels.
 
 
 ## 📖 Complete User Journey Example
