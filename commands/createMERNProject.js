@@ -277,6 +277,7 @@ Create a \`.env\` file based on \`.env.example\`.`
         );
       }
 
+      const frontendDir = path.join(rootDir, 'frontend');
       // Install backend dependencies
       console.log('📦 Installing backend dependencies...');
       try {
@@ -289,37 +290,39 @@ Create a \`.env\` file based on \`.env.example\`.`
         process.exit(1);
       }
 
-      // Create frontend using create-react-app
-      console.log('📦 Creating React frontend app...');
-      const frontendDir = path.join(rootDir, 'frontend');
+      // Create frontend using Vite
+      console.log('📦 Creating React frontend app with Vite...');
       try {
-        execSync(`npx create-react-app "${frontendDir}"`, { stdio: 'inherit' });
-        console.log('✅ React frontend created successfully.');
-      } catch (error) {
-        console.error(`❌ Failed to create React app: ${error.message}`);
-        process.exit(1);
-      }
+        // Ensure frontend directory exists and is empty
+        fs.emptyDirSync(frontendDir);
 
-      // Create frontend .env.example
-      try {
+        // Use npm create vite to generate the project
+        execSync(`npm create vite@latest frontend -- --template react`, {
+          cwd: rootDir,
+          stdio: 'inherit',
+        });
+
+        // Install dependencies
+        console.log('📦 Installing frontend dependencies...');
+        execSync('npm install', {
+          cwd: frontendDir,
+          stdio: 'inherit',
+        });
+        console.log('✅ Frontend dependencies installed.');
+
+        // Create .env.example
         fs.writeFileSync(
           path.join(frontendDir, '.env.example'),
           `# Sample .env file for frontend
 REACT_APP_API_URL=http://localhost:5000/api`
         );
         console.log('✅ Frontend .env.example file created.');
-      } catch (error) {
-        console.error(
-          `❌ Failed to create frontend .env.example file: ${error.message}`
-        );
-        process.exit(1);
-      }
 
-      // Final success message
-      console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
+        // Final success message
+        console.log(`\n🎉 MERN project "${projectName}" created successfully!`);
 
-      console.log(
-        `${chalk.green.bold('To get started:')}
+        console.log(
+          `${chalk.green.bold('To get started:')}
   ${chalk.blue(`cd "${projectName}"`)}
 
 ${chalk.magenta.bold('Backend:')}
@@ -330,7 +333,11 @@ ${chalk.magenta.bold('Backend:')}
 
 ${chalk.magenta.bold('Frontend:')}
   ${chalk.blue('cd frontend')}
-  ${chalk.yellow('npm start')}`
-      );
+  ${chalk.yellow('npm run dev')}`
+        );
+      } catch (error) {
+        console.error(`❌ Failed to create frontend: ${error.message}`);
+        process.exit(1);
+      }
     });
 }

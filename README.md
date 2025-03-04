@@ -16,6 +16,8 @@
 
 This tool eliminates the need for manual configurations, boilerplate code copying, and repetitive tasks, allowing developers to start building their apps right away with best practices in place. Perfect for both beginners and experienced developers, it saves time and ensures a solid project foundation.
 
+### It complies with latest React v19 and tailwindcss v4 
+
 ## ✨ Features
 
 - **One Command Setup**: Generate both frontend and backend with a single command
@@ -136,6 +138,11 @@ npm start               # Start React App
 ```
 
 Option:
+
+To create only backend directory.
+```bash
+devcli create my_backend --backend
+```
 
 ```bash
 devcli create my_project --next
