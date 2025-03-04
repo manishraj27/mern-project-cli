@@ -8,7 +8,7 @@ function checkVercelLogin() {
     // Check if the user is logged in to Vercel
     execSync('vercel whoami', { stdio: 'ignore' });
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -29,7 +29,7 @@ function deployFrontendToVercel(options) {
   // Step 2: Check if Vercel CLI is installed
   try {
     execSync('vercel --version', { stdio: 'ignore' });
-  } catch (error) {
+  } catch {
     console.error(
       chalk.red(
         '❌ Vercel CLI is not installed. Please install it using `npm install -g vercel`.'
@@ -47,7 +47,7 @@ function deployFrontendToVercel(options) {
     );
     try {
       execSync('vercel login', { stdio: 'inherit' });
-    } catch (error) {
+    } catch {
       console.error(chalk.red('❌ Failed to log in to Vercel.'));
       process.exit(1);
     }
@@ -58,7 +58,7 @@ function deployFrontendToVercel(options) {
     console.log(chalk.blue('📦 Uploading environment variables...'));
     try {
       execSync('vercel env pull .env', { stdio: 'inherit' });
-    } catch (error) {
+    } catch {
       console.error(chalk.red('❌ Failed to upload environment variables.'));
       process.exit(1);
     }
@@ -84,7 +84,7 @@ function deployFrontendToVercel(options) {
       chalk.green.bold('\n🎉 Your frontend has been deployed to Vercel!')
     );
     console.log(chalk.cyan(`👉 Open the deployed URL: ${deploymentUrl}`));
-  } catch (error) {
+  } catch {
     console.error(chalk.red('❌ Failed to retrieve deployment URL.'));
   }
 }
