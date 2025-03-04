@@ -21,7 +21,9 @@ function createShadcnProject(projectName) {
   // Step 1: Create Vite Project
   console.log('📦 Creating Vite React project...');
   try {
-    execSync(`npm create vite@latest ${projectName}`, { stdio: 'inherit' });
+    execSync(`npm create vite@latest ${projectName} -- --template react-swc`, {
+      stdio: 'inherit',
+    });
     console.log('✅ Vite project created successfully.');
   } catch (error) {
     console.error(`❌ Failed to create Vite project: ${error.message}`);
@@ -165,8 +167,8 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-900 text-gray-100 font-sans">
       <div className="bg-white bg-opacity-5 backdrop-blur-lg p-10 rounded-xl shadow-xl max-w-md text-center border border-gray-700">
-        <h1 className="text-2xl font-semibold mb-4 tracking-wide">MERN Project Initialized</h1>
-        <p className="text-sm text-gray-300 mb-6">
+        <h1 className="text-2xl text-gray-700 font-semibold mb-4 tracking-wide">MERN Project Initialized</h1>
+        <p className="text-sm text-gray-800 mb-6">
           This project is powered by{' '}
           <a
             href="https://www.npmjs.com/package/mern-project-cli"
@@ -178,7 +180,7 @@ function App() {
           </a>
           , built with <strong>Shadcn UI</strong> and <strong>Tailwind CSS</strong>.
         </p>
-        <p className="text-sm text-gray-300 mb-6">
+        <p className="text-sm text-gray-800 mb-6">
           Check out the official{' '}
           <a
             href="https://devcli.vercel.app/"
@@ -257,7 +259,7 @@ export default function createFrontend(program) {
       if (options.shadcn) {
         createShadcnProject(projectName);
       } else if (options.vite) {
-        // createViteProject(projectName);
+        //createViteProject(projectName);
       }
     });
 }
