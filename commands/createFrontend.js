@@ -151,10 +151,10 @@ export default defineConfig({
   try {
     const indexCssPath = path.join(rootDir, 'src', 'index.css');
     let indexCssContent = fs.readFileSync(indexCssPath, 'utf8');
-    
+
     // Remove the tw-animate-css import if it exists
     indexCssContent = indexCssContent.replace('@import "tw-animate-css";', '');
-    
+
     // Write the cleaned content back
     fs.writeFileSync(indexCssPath, indexCssContent);
     console.log('✅ index.css cleaned up.');
