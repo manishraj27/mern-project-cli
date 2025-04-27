@@ -147,6 +147,22 @@ export default defineConfig({
     process.exit(1);
   }
 
+  // Step 9.5: Clean up index.css (remove tw-animate-css if added by Shadcn)
+  try {
+    const indexCssPath = path.join(rootDir, 'src', 'index.css');
+    let indexCssContent = fs.readFileSync(indexCssPath, 'utf8');
+    
+    // Remove the tw-animate-css import if it exists
+    indexCssContent = indexCssContent.replace('@import "tw-animate-css";', '');
+    
+    // Write the cleaned content back
+    fs.writeFileSync(indexCssPath, indexCssContent);
+    console.log('✅ index.css cleaned up.');
+  } catch (error) {
+    console.error(`❌ Warning: Could not clean up index.css: ${error.message}`);
+    // Don't exit on this error, continue with the process
+  }
+
   // Step 10: Add button component
   console.log('📦 Adding button component...');
   try {
@@ -339,14 +355,14 @@ export default defineConfig({
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import default from './../eslint.config';
+
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(path.dirname(new URL(import.meta.url).pathname), "./src"),
     },
   },
 })`;
