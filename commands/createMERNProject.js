@@ -68,7 +68,7 @@ app.listen(PORT, () => {
             path.join(backendDir, '.env.example'),
             `# Sample .env file for backend
 PORT=5000
-DB_URI=your_database_uri_here`
+DB_URL=your_database_uri_here`
           );
           fs.writeFileSync(
             path.join(backendDir, '.gitignore'),
