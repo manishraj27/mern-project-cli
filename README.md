@@ -936,10 +936,10 @@ If you find this tool helpful, please consider:
 
 <div align="center">
   <h3>🌟 Build with ❤️ by Manish Raj and Prakash</h3>
-  <p>
+  <!-- <p>
     <a href="https://manishraj.me/">Portfolio</a> •
     <a href="https://github.com/manishraj27">GitHub</a> •
     <a href="https://www.linkedin.com/in/manishraj27">LinkedIn</a> •
     <a href="https://x.com/manish_rraaj">Twitter</a>
-  </p>
+  </p> -->
 </div>
