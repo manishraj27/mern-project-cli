@@ -943,3 +943,7 @@ If you find this tool helpful, please consider:
     <a href="https://x.com/manish_rraaj">Twitter</a>
   </p> -->
 </div>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=manishraj27/mern-project-cli&type=Date)](https://www.star-history.com/#manishraj27/mern-project-cli&Date)
