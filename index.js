@@ -15,6 +15,7 @@ import initializeDockerCommand from './commands/initializeDocker.js';
 import addESLintCommand from './commands/addESLint.js';
 import addJWTAuthCommand from './commands/addJWTAuth.js';
 import addDeployCommand from './commands/deployCommand.js';
+import initReactNative from './commands/initReactNative.js';
 
 // Step 1: Get the directory of the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,7 @@ initializeDockerCommand(program);
 addESLintCommand(program);
 addJWTAuthCommand(program);
 addDeployCommand(program);
+initReactNative(program);
 
 // Step 5: Parse the provided arguments and start the CLI
 program.parse(process.argv);
