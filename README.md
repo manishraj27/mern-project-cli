@@ -18,6 +18,8 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
 
 ### It complies with latest React v19 and tailwindcss v4 
 
+> **🚀 [Quick Start Guide](./QUICK_START.md)** - Get started in 2 minutes with essential commands!
+
 ## ✨ Features
 
 - **One Command Setup**: Generate both frontend and backend with a single command
