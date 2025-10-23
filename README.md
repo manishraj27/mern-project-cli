@@ -43,7 +43,7 @@ This tool eliminates the need for manual configurations, boilerplate code copyin
   - [5. devcli create-frontend <project_name>](#5-create-frontend-project)
   - [6. devcli init-dockerfiles](#6-initialize-docker-files)
   - [7. devcli add-eslint](#7-add-eslint-and-prettierrc)
-  - [8. devcli add-jwt-auth](#8-add-jwt-authetication-and-authorization)
+  - [8. devcli add-jwt-auth](#8-add-jwt-authentication-and-authorization)
   - [9. devcli deploy --vercel](#9-deploy-frontend-to-Vercel)
 - [Complete User Journey Example](#-Complete-User-Journey-Example)
 - [Future Enhancements](#-future-enhancements)
@@ -569,7 +569,7 @@ This command generates a basic ESLint configuration file (`.eslintrc.json`) that
 - **Ensures Consistency**: Helps maintain consistent linting rules across backend and frontend codebases.
 - **Supports Arbitrary Setup**: Allows for easy ESLint configuration in any directory, defaulting to Node.js environment.
 
-### 8. Add JWT Authetication and Authorization 
+### 8. Add JWT Authentication and Authorization 
 Here is the content for the 8th command, "Add JWT Authentication":
 
 Add JWT authentication boilerplate to your backend project.
@@ -791,7 +791,7 @@ npm start
 cd ../backend
 devcli mongodb-connect
 
-# Step 6: Generate Mongoose Scheama (optional)
+# Step 6: Generate Mongoose Schema (optional)
 devcli mongoose-schema Blog name:String category:String
 
 
@@ -808,8 +808,8 @@ devcli add-eslint
 # Step 9: Create blog slice for Redux
 devcli add-redux --slice blog --actions="addPost,deletePost,updatePost" --state="posts:array,loading:boolean"
 
-# Step 10: Add jwt authetication 
-cd ..backend
+# Step 10: Add jwt authentication 
+cd ../backend
 devcli add-jwt-auth
 
 🎉 Congratulations! Your blog application structure is ready with:
